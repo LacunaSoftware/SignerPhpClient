@@ -28,7 +28,8 @@
             "Lacuna\\Signer\\PhpClient\\": "lib/PhpClient/",
             "Lacuna\\Signer\\Model\\": "lib/Model/",
             "Lacuna\\Signer\\PhpClient\\Models\\": "lib/PhpClient/Models/",
-            "Lacuna\\Signer\\PhpClient\\Builders\\": "lib/PhpClient/Builders/"
+            "Lacuna\\Signer\\PhpClient\\Builders\\": "lib/PhpClient/Builders/",
+            "Lacuna\\Signer\\PhpClient\\Params\\": "lib/PhpClient/Params/"
         }
     }
 }

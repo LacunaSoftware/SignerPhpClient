@@ -10,6 +10,10 @@ use GuzzleHttp\Psr7;
 use InvalidArgumentException;
 use UnexpectedValueException;
 
+/**
+ * Class SignerClient
+ * @package Lacuna\Signer\PhpClient
+ */
 class RestClient
 {
 
@@ -24,7 +28,6 @@ class RestClient
         $this->endpointUri = $endpointUri;
         $this->apiKey = $apiKey;
 
-
         $this->usePhpCAInfo = $usePhpCAInfo;
 
         if (!isset($caInfoPath)) {
@@ -33,6 +36,9 @@ class RestClient
         $this->caInfoPath = $caInfoPath;
     }
 
+    /**
+     * @return  Client
+     */
     function getClient()
     {
         $headers = [
@@ -64,6 +70,7 @@ class RestClient
     }
 
     /**
+     * @param string $requestUrl
      * @throws Exception
      */
     function get($requestUrl)
@@ -73,7 +80,7 @@ class RestClient
         $uri = $this->endpointUri . $requestUrl;
 
         try {
-            $result = $this->jsonDecode($client->get($uri)->getBody());
+            $result = json_decode($client->get($uri)->getBody(), true);
         } catch (Exception $ex) {
             throw new Exception($ex);
         }
@@ -82,25 +89,6 @@ class RestClient
         return $result;
     }
 
-    /**
-     * @throws Exception
-     */
-//    function post($requestUrl, $request)
-//    {
-//        $options = [  'headers' => ['Content-Type' => 'application/json'],
-//            'body' => "{\"files\":[{\"displayName\":\"One Signer Sample\",\"id\":\"bf42a204-2dc7-4803-ac41-4d76ccc146ac\",\"name\":\"name\",\"contentType\":\"application/pdf\"}],\"flowActions\":[{\"type\":\"Signer\",\"user\":{\"name\":\"Jack Bauer\",\"identifier\":\"75502846369\",\"email\":\"jack.bauer@mailinator.com\"}}]}"];
-//        $client = $this->getClient();
-//        $uri = $this->endpointUri . $requestUrl;
-//
-//        try {
-//            $result = $this->jsonDecode($client->post($uri)->getBody());
-//        } catch (Exception $ex) {
-//            throw new Exception($ex);
-//        }
-//
-//
-//        return $result;
-//    }
 
     /**
      * @throws \Exception
@@ -118,7 +106,7 @@ class RestClient
         } catch (Exception $ex) {
             throw new Exception($ex);
         }
-        return $this->jsonDecode($response->getBody());
+        return json_decode($response->getBody(), true);
     }
 
 
@@ -131,7 +119,7 @@ class RestClient
         $client = $this->getClient();
         $uri = $this->endpointUri . $requestUri;
 
-        return $client->request('POST', $uri, [
+        $result = $client->request('POST', $uri, [
             'multipart' => [
                 [
                     'name' => 'content',
@@ -147,12 +135,30 @@ class RestClient
                 ],
             ]
         ]);
+
+        return json_decode($result->getBody());
     }
 
-    function jsonDecode($json)
+    /**
+     * @throws Exception
+     */
+    function delete($requestUrl)
     {
-        return json_decode($json, true);
+
+        $client = $this->getClient();
+        $uri = $this->endpointUri . $requestUrl;
+        try {
+            $result =$client->delete($uri);
+        } catch (Exception $ex) {
+            throw new Exception($ex);
+        }
+
+        if($result->getStatusCode() != 200){
+            echo "Error " . $result->getStatusCode();
+        }
     }
+
+
 
     function jsonEncode($json)
     {

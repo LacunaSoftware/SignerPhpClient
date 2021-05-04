@@ -1,5 +1,13 @@
-Signer package for PHP
+Signer client lib for PHP
 ====================================
-**Standard version for 5.5 and greater**
+**Standard version for PHP 5.5 or greater**
 
-This package contains classes that encapsulate the calls to the Signer.
+This library contains classes that encapsulate the calls to the Signer API.
+
+The recommended way to install Signer client lib is through Composer:
+
+"require": {
+"lacuna/signer-client": "^1.0"
+}
+
+This library depends on the GuzzleHttp package, which in turn requires PHP 5.5 or greater.

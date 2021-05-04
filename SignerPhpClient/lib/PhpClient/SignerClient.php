@@ -88,18 +88,16 @@ class SignerClient
      */
     function deleteDocument($id)
     {
-
         $requestUri = "/api/documents/" . $id;
         $restClient = $this->getRestClient();
-        $result = $restClient->delete($requestUri);
-
-        return $result;
+        $restClient->delete($requestUri);
     }
 
     /**
      * @throws \Exception
      */
-    function listDocuments($searchParams) {
+    function listDocuments($searchParams)
+    {
         $requestUri = "/api/documents?" . $this->buildSearchDocumentListString($searchParams);
         $response = $this->getRestClient()->get($requestUri);
         $model = new PaginatedSearchResponseDocumentsDocumentListModel();
@@ -111,8 +109,9 @@ class SignerClient
      * @param DocumentListParameters $searchParams
      * @throws Exception
      */
-    function buildSearchDocumentListString($searchParams) {
-        return "IsConcluded=" . json_encode($searchParams->getIsConcluded()). "&OrganizationType=Normal&FolderType=Normal&FilterByDocumentType=False&Q=". $this->getParameterOrEmpty($searchParams->getQ()) . "&Limit=" . $searchParams->getLimit() ."&Offset=0&Order=" . $searchParams->getOrder();
+    function buildSearchDocumentListString($searchParams)
+    {
+        return "IsConcluded=" . json_encode($searchParams->getIsConcluded()) . "&OrganizationType=Normal&FolderType=Normal&FilterByDocumentType=False&Q=" . $this->getParameterOrEmpty($searchParams->getQ()) . "&Limit=" . $searchParams->getLimit() . "&Offset=0&Order=" . $searchParams->getOrder();
     }
 
 
@@ -125,10 +124,10 @@ class SignerClient
         try {
             return urlencode($parameter);
         } catch (Exception $e) {
-        return "";
+            return "";
 
         }
-	}
+    }
 
     function objectToArray($object)
     {

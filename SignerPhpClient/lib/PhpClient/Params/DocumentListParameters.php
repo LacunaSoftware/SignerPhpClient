@@ -14,11 +14,11 @@ use Lacuna\Signer\Model\FolderType;
 class DocumentListParameters extends PaginatedSearchParams
 {
 
-    public $IsConcluded;
-    public $FolderId;
-    public $FolderType;
-    public $DocumentType;
-    public $FilterByDocumentType;
+    public $isConcluded;
+    public $folderId;
+    public $folderType;
+    public $documentType;
+    public $filterByDocumentType;
 
     public function __construct()
     {
@@ -30,15 +30,15 @@ class DocumentListParameters extends PaginatedSearchParams
      */
     function getIsConcluded()
     {
-        return $this->IsConcluded;
+        return $this->isConcluded;
     }
 
     /**
-     * @param boolean $IsConcluded
+     * @param boolean $isConcluded
      */
-    function setIsConcluded($IsConcluded)
+    function setIsConcluded($isConcluded)
     {
-        $this->IsConcluded = $IsConcluded;
+        $this->isConcluded = $isConcluded;
     }
 
     /**
@@ -46,48 +46,48 @@ class DocumentListParameters extends PaginatedSearchParams
      */
     function getFolderId()
     {
-        return $this->FolderId;
+        return $this->folderId;
     }
 
     /**
-     * @param string $FolderId
+     * @param string $folderId
      */
-    function setFolderId($FolderId)
+    function setFolderId($folderId)
     {
-        $this->FolderId = $FolderId;
+        $this->folderId = $folderId;
     }
 
     /**
-     * @return FolderType
+     * @return folderType
      */
     function getFolderType()
     {
-        return $this->FolderType;
+        return $this->folderType;
     }
 
     /**
-     * @param FolderType $FolderType
+     * @param FolderType $folderType
      */
-    function setFolderType($FolderType)
+    function setFolderType($folderType)
     {
-        $this->FolderType = $FolderType;
+        $this->folderType = $folderType;
     }
 
     /**
-     * @return DocumentTypes
+     * @return documentTypes
      */
 
     function getDocumentTypes()
     {
-        return $this->DocumentType;
+        return $this->documentType;
     }
 
     /**
-     * @param DocumentTypes $DocumentTypes
+     * @param DocumentTypes $documentTypes
      */
-    function setDocumentTypes($DocumentTypes)
+    function setDocumentTypes($documentTypes)
     {
-        $this->DocumentType = $DocumentTypes;
+        $this->documentType = $documentTypes;
     }
 
     /**
@@ -95,15 +95,15 @@ class DocumentListParameters extends PaginatedSearchParams
      */
     function getFilterByDocumentType()
     {
-        return $this->FilterByDocumentType;
+        return $this->filterByDocumentType;
     }
 
     /**
-     * @param boolean $FilterByDocumentType
+     * @param boolean $filterByDocumentType
      */
-    function setFilterByDocumentType($FilterByDocumentType)
+    function setFilterByDocumentType($filterByDocumentType)
     {
-        $this->FilterByDocumentType = $FilterByDocumentType;
+        $this->filterByDocumentType = $filterByDocumentType;
     }
 
 }

@@ -3,8 +3,13 @@
 namespace Lacuna\Signer\PhpClient;
 
 use Exception;
+use Lacuna\Signer\Model\DocumentsCreateDocumentResult;
+use Lacuna\Signer\Model\DocumentsDocumentListModel;
+use Lacuna\Signer\Model\FoldersFolderInfoModel;
 use Lacuna\Signer\Model\PaginatedSearchResponseDocumentsDocumentListModel;
+use Lacuna\Signer\Model\PaginatedSearchResponseFoldersFolderInfoModel;
 use Lacuna\Signer\PhpClient\Params\DocumentListParameters;
+use Lacuna\Signer\PhpClient\Params\PaginatedSearchParams;
 use Lacuna\Signer\PhpClient\RestClient;
 use ReflectionClass;
 use ReflectionProperty;
@@ -46,12 +51,17 @@ class SignerClient
 
     /**
      * @param string $request
+     * @return DocumentsCreateDocumentResult[]
      * @throws Exception
      */
     function createDocument($request)
     {
-        $result = $this->getRestClient()->post("/api/documents", $request);
-        return $result[0];
+        $response = $this->getRestClient()->post("/api/documents", $request);
+        $result = array();
+        foreach ($response as $element) {
+            array_push($result, new DocumentsCreateDocumentResult($element));
+        }
+        return $result;
     }
 
     /**
@@ -94,15 +104,56 @@ class SignerClient
     }
 
     /**
+     * @return  PaginatedSearchResponseFoldersFolderInfoModel
+     * @throws \Exception
+     */
+    function listFoldersPaginated($searchParams, $organizationId)
+    {
+        $requestUri = "/api/folders" . $this->buildSearchPaginatedParamsString($searchParams) . "&organizationId=" . $this->getParameterOrEmpty($organizationId);
+        $response = $this->getRestClient()->get($requestUri);
+
+        $result = array();
+
+        foreach ($response["items"] as $element) {
+            array_push($result, new FoldersFolderInfoModel($element));
+        }
+
+        $model = new PaginatedSearchResponseFoldersFolderInfoModel($response);
+        $model->setItems($result);
+        $model->setTotalCount($response["totalCount"]);
+
+        return $model;
+    }
+
+    /**
+     * @return PaginatedSearchResponseDocumentsDocumentListModel
      * @throws \Exception
      */
     function listDocuments($searchParams)
     {
         $requestUri = "/api/documents?" . $this->buildSearchDocumentListString($searchParams);
         $response = $this->getRestClient()->get($requestUri);
-        $model = new PaginatedSearchResponseDocumentsDocumentListModel();
 
-        return $response;
+        $result = array();
+
+        foreach ($response["items"] as $element) {
+            array_push($result, new DocumentsDocumentListModel($element));
+        }
+
+        $model = new PaginatedSearchResponseDocumentsDocumentListModel();
+        $model->setItems($result);
+        $model->setTotalCount($response["totalCount"]);
+
+        return $model;
+    }
+
+    /**
+     * @param PaginatedSearchParams $searchParams
+     * @throws Exception
+     */
+    function buildSearchPaginatedParamsString($searchParams)
+    {
+        return "?q=" . $this->getParameterOrEmpty($searchParams->getQ()) . "&limit=" . $searchParams->getLimit() . "&offset=" . $this->getParameterOrZero($searchParams->getOffset());
     }
 
     /**
@@ -119,6 +170,21 @@ class SignerClient
     {
         if ($parameter == null || strlen($parameter) == 0) {
             return "";
+        }
+
+        try {
+            return urlencode($parameter);
+        } catch (Exception $e) {
+            return "";
+
+        }
+    }
+
+
+    function getParameterOrZero($parameter)
+    {
+        if ($parameter == null || strlen($parameter) == 0) {
+            return "0";
         }
 
         try {

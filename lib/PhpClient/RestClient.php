@@ -148,16 +148,15 @@ class RestClient
         $client = $this->getClient();
         $uri = $this->endpointUri . $requestUrl;
         try {
-            $result =$client->delete($uri);
+            $result = $client->delete($uri);
         } catch (Exception $ex) {
             throw new Exception($ex);
         }
 
-        if($result->getStatusCode() != 200){
+        if ($result->getStatusCode() != 200) {
             echo "Error " . $result->getStatusCode();
         }
     }
-
 
 
     function jsonEncode($json)

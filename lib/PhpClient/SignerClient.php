@@ -147,6 +147,14 @@ class SignerClient
         return $model;
     }
 
+    function getActionUrl($documentId, $request) {
+		$requestUri = "/api/documents/" . $documentId .  "/action-url";
+
+		$response = $this->getRestClient()->post($requestUri, $request);
+
+		return $response;
+	}
+
     /**
      * @param PaginatedSearchParams $searchParams
      * @throws Exception

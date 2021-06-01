@@ -8,6 +8,7 @@ use Lacuna\Signer\Model\DocumentsDocumentListModel;
 use Lacuna\Signer\Model\FoldersFolderInfoModel;
 use Lacuna\Signer\Model\PaginatedSearchResponseDocumentsDocumentListModel;
 use Lacuna\Signer\Model\PaginatedSearchResponseFoldersFolderInfoModel;
+use Lacuna\Signer\Model\TicketModel;
 use Lacuna\Signer\PhpClient\Params\DocumentListParameters;
 use Lacuna\Signer\PhpClient\Params\PaginatedSearchParams;
 use Lacuna\Signer\PhpClient\RestClient;
@@ -75,6 +76,36 @@ class SignerClient
         $result = $restClient->get($requestUri);
 
         return $result;
+    }
+
+    /**
+     * @throws Exception
+     */
+    function getDocumentDownloadTicket($id, $type)
+    {
+        $requestUri = "/api/documents/" . $id . "/ticket?type=" . $type;
+        $ticket = new TicketModel($this->getRestClient()->get($requestUri));
+        return $ticket;
+    }
+
+    /**
+     * @throws Exception
+     */
+    function getDocumentContent($id, $type)
+    {
+        $requestUri = "/api/documents/" . $id . "/content?type=" . $type;
+        $document = $this->getRestClient()->getStream($requestUri);
+        return $document;
+    }
+
+    /**
+     * @throws Exception
+     */
+    function GetDocumentContentBytesAsync($id, $type)
+    {
+        $requestUri = "/api/documents/" . $id . "/content-b64?type=" . $type;
+        $document = $this->getRestClient()->get($requestUri);
+        return $document;
     }
 
     /**
@@ -147,13 +178,14 @@ class SignerClient
         return $model;
     }
 
-    function getActionUrl($documentId, $request) {
-		$requestUri = "/api/documents/" . $documentId .  "/action-url";
+    function getActionUrl($documentId, $request)
+    {
+        $requestUri = "/api/documents/" . $documentId . "/action-url";
 
-		$response = $this->getRestClient()->post($requestUri, $request);
+        $response = $this->getRestClient()->post($requestUri, $request);
 
-		return $response;
-	}
+        return $response;
+    }
 
     /**
      * @param PaginatedSearchParams $searchParams

@@ -69,13 +69,43 @@ class RestClient
         ]);
     }
 
+    function getStreamClient()
+    {
+        $headers = [
+            'Accept' => 'application/json'
+        ];
+
+        if (!empty($this->apiKey)) {
+            $headers['X-Api-Key'] = $this->apiKey;
+        }
+
+        $verify = true;
+
+        if (!$this->usePhpCAInfo) {
+            if (!isset($this->caInfoPath)) {
+                throw new UnexpectedValueException('No CA certificates path was provided. Set the "usePhpCAInfo" variable to true if you want to use the default value that your PHP uses.');
+            }
+            if (!file_exists($this->caInfoPath)) {
+                throw new InvalidArgumentException("The provided cacert file does not exist: {$this->caInfoPath}.");
+            }
+            $verify = $this->caInfoPath;
+        }
+
+        return new Client([
+            'base_uri' => $this->endpointUri,
+            'stream' => true,
+            'headers' => $headers,
+            'http_errors' => false,
+            'verify' => $verify
+        ]);
+    }
+
     /**
      * @param string $requestUrl
      * @throws Exception
      */
     function get($requestUrl)
     {
-        $verb = 'GET';
         $client = $this->getClient();
         $uri = $this->endpointUri . $requestUrl;
 
@@ -138,6 +168,20 @@ class RestClient
 
         return json_decode($result->getBody());
     }
+
+    function getStream($requestUri) {
+
+        $client = $this->getStreamClient();
+        $uri = $this->endpointUri . $requestUri;
+
+        try {
+            $result = $client->get($uri)->getBody()->getContents();
+        } catch (Exception $ex) {
+            throw new Exception($ex);
+        }
+
+        return $result;
+	}
 
     /**
      * @throws Exception

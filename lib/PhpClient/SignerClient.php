@@ -6,6 +6,7 @@ use Exception;
 use Lacuna\Signer\Model\DocumentsCreateDocumentResult;
 use Lacuna\Signer\Model\DocumentsDocumentListModel;
 use Lacuna\Signer\Model\FoldersFolderInfoModel;
+use Lacuna\Signer\Model\NotificationsCreateFlowActionReminderRequest;
 use Lacuna\Signer\Model\PaginatedSearchResponseDocumentsDocumentListModel;
 use Lacuna\Signer\Model\PaginatedSearchResponseFoldersFolderInfoModel;
 use Lacuna\Signer\Model\TicketModel;
@@ -186,6 +187,21 @@ class SignerClient
 
         return $response;
     }
+
+    // region NOTIFICATIONS
+
+    /**
+     * @throws Exception
+     */
+    function sendFlowActionReminder($documentId, $flowActionId)
+    {
+        $request = new NotificationsCreateFlowActionReminderRequest();
+        $request->setDocumentId($documentId);
+        $request->setFlowActionId($flowActionId);
+        $this->getRestClient()->post("/api/notifications/flow-action-reminder", $request);
+    }
+
+    // endregion
 
     /**
      * @param PaginatedSearchParams $searchParams

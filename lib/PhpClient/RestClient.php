@@ -169,7 +169,8 @@ class RestClient
         return json_decode($result->getBody());
     }
 
-    function getStream($requestUri) {
+    function getStream($requestUri)
+    {
 
         $client = $this->getStreamClient();
         $uri = $this->endpointUri . $requestUri;
@@ -181,7 +182,7 @@ class RestClient
         }
 
         return $result;
-	}
+    }
 
     /**
      * @throws Exception

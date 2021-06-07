@@ -99,6 +99,15 @@ class SignerClient
         return $document;
     }
 
+
+    /**
+     * @throws Exception
+     */
+    function UpdateInvoiceStatus($id, $request) {
+        $requestUri = "/api/invoices/" . $id ."/payment";
+        return $this->getRestClient()->put($requestUri, $request);
+    }
+
     /**
      * @throws Exception
      */

@@ -169,6 +169,24 @@ class RestClient
         return json_decode($result->getBody());
     }
 
+    function put($requestUri, $request)
+    {
+
+        $client = $this->getClient();
+        $uri = $this->endpointUri . $requestUri;
+
+        try {
+            $response = $client->request('PUT', $uri, [
+                'body' => $request,
+                'headers' => ['Content-Type' => 'application/json']
+            ]);
+        } catch (Exception $ex) {
+            throw new Exception($ex);
+        }
+        var_dump($response->getStatusCode());
+        return json_decode($response->getBody(), true);
+    }
+
     function getStream($requestUri)
     {
 

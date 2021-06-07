@@ -26,10 +26,10 @@
  * Do not edit the class manually.
  */
 
-namespace Swagger\Client\Model;
+namespace Lacuna\Signer\Model;
 
 use \ArrayAccess;
-use \Swagger\Client\ObjectSerializer;
+use \Lacuna\Signer\ObjectSerializer;
 
 /**
  * InvoicesUpdateInvoicePaymentStatusRequest Class Doc Comment

@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  Swagger\Client
+ * @package  Lacuna\Signer
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -13,9 +13,9 @@
 /**
  * Dropsigner (HML)
  *
- * <!--------------------------------------------------------------------------------------------------------------------->    <h2>Authentication</h2>    <p>   In order to call this APIs, you will need an <strong>API key</strong>. Set the API key in the header <span class=\"code\">X-Api-Key</span>:  </p>    <pre>X-Api-Key: your-app|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre>    <!--------------------------------------------------------------------------------------------------------------------->  <br />    <h2>HTTP Codes</h2>    <p>   The APIs will return the following HTTP codes:  </p>    <table>   <thead>    <tr>     <th>Code</th>     <th>Description</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">200 (OK)</strong></td>     <td>Request processed successfully. The response is different for each API, please refer to the operation's documentation</td>    </tr>    <tr>     <td><strong class=\"model-title\">400 (Bad Request)</strong></td>     <td>Syntax error. For instance, when a required field was not provided</td>    </tr>    <tr>     <td><strong class=\"model-title\">401 (Unauthorized)</strong></td>     <td>API key not provided or invalid</td>    </tr>    <tr>     <td><strong class=\"model-title\">403 (Forbidden)</strong></td>     <td>API key is valid, but the application has insufficient permissions to complete the requested operation</td>    </tr>    <tr>     <td><strong class=\"model-title\">422 (Unprocessable Entity)</strong></td>     <td>API error. The response is as defined in <a href=\"#model-ErrorModel\">ErrorModel</a></td>    </tr>   </tbody>  </table>    <br />    <h3>Error Codes</h3>    <p>Some of the error codes returned in a 422 response are provided bellow*:</p>    <ul>   <li>CertificateNotFound</li>   <li>DocumentNotFound</li>   <li>FolderNotFound</li>   <li>CpfMismatch</li>   <li>CpfNotExpected</li>   <li>InvalidFlowAction</li>   <li>DocumentInvalidKey</li>  </ul>    <p style=\"font-size: 0.9em\">   *The codes shown above are the main error codes. Nonetheless, this list is not comprehensive. New codes may be added anytime without previous warning.  </p>    <!--------------------------------------------------------------------------------------------------------------------->    <br />    <h2>Webhooks</h2>    <p>   It is recomended to subscribe to Webhook events <strong>instead</strong> of polling APIs. To do so, enable webhooks and register an URL that will receive a POST request   whenever one of the events bellow occur.  </p>  <p>   All requests have the format described in <a href=\"#model-Webhooks.WebhookModel\">Webhooks.WebhookModel</a>.   The data field varies according to the webhook event type:  </p>      <table>   <thead>    <tr>     <th>Event type</th>     <th>Description</th>     <th>Payload</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">DocumentSigned</strong></td>     <td>Triggered when a document is signed.</td>     <td><a href=\"#model-Webhooks.DocumentSignedModel\">Webhooks.DocumentSignedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentApproved</strong></td>     <td>Triggered when a document is approved.</td>     <td><a href=\"#model-Webhooks.DocumentApprovedModel\">Webhooks.DocumentApprovedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentRefused</strong></td>     <td>Triggered when a document is refused.</td>     <td><a href=\"#model-Webhooks.DocumentRefusedModel\">Webhooks.DocumentRefusedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentConcluded</strong></td>     <td>Triggered when the flow of a document is concluded.</td>     <td><a href=\"#model-Webhooks.DocumentConcludedModel\">Webhooks.DocumentConcludedModel</a></td>    </tr>   </tbody>  </table>    <p>   To register your application URL and enable Webhooks, access the integrations section in your <a href=\"/private/organizations\" target=\"_blank\">organization's details page</a>.  </p>
+ * <!--------------------------------------------------------------------------------------------------------------------->    <h2>Authentication</h2>    <p>   In order to call this APIs, you will need an <strong>API key</strong>. Set the API key in the header <span class=\"code\">X-Api-Key</span>:  </p>    <pre>X-Api-Key: your-app|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre>    <!--------------------------------------------------------------------------------------------------------------------->  <br />    <h2>HTTP Codes</h2>    <p>   The APIs will return the following HTTP codes:  </p>    <table>   <thead>    <tr>     <th>Code</th>     <th>Description</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">200 (OK)</strong></td>     <td>Request processed successfully. The response is different for each API, please refer to the operation's documentation</td>    </tr>    <tr>     <td><strong class=\"model-title\">400 (Bad Request)</strong></td>     <td>Syntax error. For instance, when a required field was not provided</td>    </tr>    <tr>     <td><strong class=\"model-title\">401 (Unauthorized)</strong></td>     <td>API key not provided or invalid</td>    </tr>    <tr>     <td><strong class=\"model-title\">403 (Forbidden)</strong></td>     <td>API key is valid, but the application has insufficient permissions to complete the requested operation</td>    </tr>    <tr>     <td><strong class=\"model-title\">422 (Unprocessable Entity)</strong></td>     <td>API error. The response is as defined in <a href=\"#model-ErrorModel\">ErrorModel</a></td>    </tr>   </tbody>  </table>    <br />    <h3>Error Codes</h3>    <p>Some of the error codes returned in a 422 response are provided bellow*:</p>    <ul>   <li>CertificateNotFound</li>   <li>DocumentNotFound</li>   <li>FolderNotFound</li>   <li>CpfMismatch</li>   <li>CpfNotExpected</li>   <li>InvalidFlowAction</li>   <li>DocumentInvalidKey</li>  </ul>    <p style=\"font-size: 0.9em\">   *The codes shown above are the main error codes. Nonetheless, this list is not comprehensive. New codes may be added anytime without previous warning.  </p>    <!--------------------------------------------------------------------------------------------------------------------->    <br />    <h2>Webhooks</h2>    <p>   It is recomended to subscribe to Webhook events <strong>instead</strong> of polling APIs. To do so, enable webhooks and register an URL that will receive a POST request   whenever one of the events bellow occur.  </p>  <p>   All requests have the format described in <a href=\"#model-Webhooks.WebhookModel\">Webhooks.WebhookModel</a>.   The data field varies according to the webhook event type:  </p>      <table>   <thead>    <tr>     <th>Event type</th>     <th>Description</th>     <th>Payload</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">DocumentSigned</strong></td>     <td>Triggered when a document is signed.</td>     <td><a href=\"#model-Webhooks.DocumentSignedModel\">Webhooks.DocumentSignedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentApproved</strong></td>     <td>Triggered when a document is approved.</td>     <td><a href=\"#model-Webhooks.DocumentApprovedModel\">Webhooks.DocumentApprovedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentRefused</strong></td>     <td>Triggered when a document is refused.</td>     <td><a href=\"#model-Webhooks.DocumentRefusedModel\">Webhooks.DocumentRefusedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentConcluded</strong></td>     <td>Triggered when the flow of a document is concluded.</td>     <td><a href=\"#model-Webhooks.DocumentConcludedModel\">Webhooks.DocumentConcludedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentCanceled</strong></td>     <td>Triggered when the document is canceled.</td>     <td><a href=\"#model-Webhooks.DocumentCanceledModel\">Webhooks.DocumentCanceledModel</a></td>    </tr>   </tbody>  </table>    <p>   To register your application URL and enable Webhooks, access the integrations section in your <a href=\"/private/organizations\" target=\"_blank\">organization's details page</a>.  </p>
  *
- * OpenAPI spec version: 1.28.0
+ * OpenAPI spec version: 1.33.1
  * 
  * Generated by: https://github.com/swagger-api/swagger-codegen.git
  * Swagger Codegen version: 3.0.20
@@ -35,7 +35,7 @@ use \Lacuna\Signer\ObjectSerializer;
  * FlowActionsFlowActionCreateModel Class Doc Comment
  *
  * @category Class
- * @package  Swagger\Client
+ * @package  Lacuna\Signer
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -68,6 +68,8 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
 'requireSmsAuthenticationToSignElectronically' => 'bool',
 'requireAuthenticatorAppToSignElectronically' => 'bool',
 'requireSelfieAuthenticationToSignElectronically' => 'bool',
+'requireDatavalidAuthenticationToSignElectronically' => 'bool',
+'requirePixAuthenticationToSignElectronically' => 'bool',
 'xadesOptions' => '\Lacuna\Signer\Model\FlowActionsXadesOptionsModel'    ];
 
     /**
@@ -88,6 +90,8 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
 'requireSmsAuthenticationToSignElectronically' => null,
 'requireAuthenticatorAppToSignElectronically' => null,
 'requireSelfieAuthenticationToSignElectronically' => null,
+'requireDatavalidAuthenticationToSignElectronically' => null,
+'requirePixAuthenticationToSignElectronically' => null,
 'xadesOptions' => null    ];
 
     /**
@@ -129,6 +133,8 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
 'requireSmsAuthenticationToSignElectronically' => 'requireSmsAuthenticationToSignElectronically',
 'requireAuthenticatorAppToSignElectronically' => 'requireAuthenticatorAppToSignElectronically',
 'requireSelfieAuthenticationToSignElectronically' => 'requireSelfieAuthenticationToSignElectronically',
+'requireDatavalidAuthenticationToSignElectronically' => 'requireDatavalidAuthenticationToSignElectronically',
+'requirePixAuthenticationToSignElectronically' => 'requirePixAuthenticationToSignElectronically',
 'xadesOptions' => 'xadesOptions'    ];
 
     /**
@@ -149,6 +155,8 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
 'requireSmsAuthenticationToSignElectronically' => 'setRequireSmsAuthenticationToSignElectronically',
 'requireAuthenticatorAppToSignElectronically' => 'setRequireAuthenticatorAppToSignElectronically',
 'requireSelfieAuthenticationToSignElectronically' => 'setRequireSelfieAuthenticationToSignElectronically',
+'requireDatavalidAuthenticationToSignElectronically' => 'setRequireDatavalidAuthenticationToSignElectronically',
+'requirePixAuthenticationToSignElectronically' => 'setRequirePixAuthenticationToSignElectronically',
 'xadesOptions' => 'setXadesOptions'    ];
 
     /**
@@ -169,6 +177,8 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
 'requireSmsAuthenticationToSignElectronically' => 'getRequireSmsAuthenticationToSignElectronically',
 'requireAuthenticatorAppToSignElectronically' => 'getRequireAuthenticatorAppToSignElectronically',
 'requireSelfieAuthenticationToSignElectronically' => 'getRequireSelfieAuthenticationToSignElectronically',
+'requireDatavalidAuthenticationToSignElectronically' => 'getRequireDatavalidAuthenticationToSignElectronically',
+'requirePixAuthenticationToSignElectronically' => 'getRequirePixAuthenticationToSignElectronically',
 'xadesOptions' => 'getXadesOptions'    ];
 
     /**
@@ -241,6 +251,8 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
         $this->container['requireSmsAuthenticationToSignElectronically'] = isset($data['requireSmsAuthenticationToSignElectronically']) ? $data['requireSmsAuthenticationToSignElectronically'] : null;
         $this->container['requireAuthenticatorAppToSignElectronically'] = isset($data['requireAuthenticatorAppToSignElectronically']) ? $data['requireAuthenticatorAppToSignElectronically'] : null;
         $this->container['requireSelfieAuthenticationToSignElectronically'] = isset($data['requireSelfieAuthenticationToSignElectronically']) ? $data['requireSelfieAuthenticationToSignElectronically'] : null;
+        $this->container['requireDatavalidAuthenticationToSignElectronically'] = isset($data['requireDatavalidAuthenticationToSignElectronically']) ? $data['requireDatavalidAuthenticationToSignElectronically'] : null;
+        $this->container['requirePixAuthenticationToSignElectronically'] = isset($data['requirePixAuthenticationToSignElectronically']) ? $data['requirePixAuthenticationToSignElectronically'] : null;
         $this->container['xadesOptions'] = isset($data['xadesOptions']) ? $data['xadesOptions'] : null;
     }
 
@@ -281,7 +293,7 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
     /**
      * Sets type
      *
-     *  $type type
+     * @param \Lacuna\Signer\Model\FlowActionType $type type
      *
      * @return $this
      */
@@ -552,6 +564,54 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
     public function setRequireSelfieAuthenticationToSignElectronically($requireSelfieAuthenticationToSignElectronically)
     {
         $this->container['requireSelfieAuthenticationToSignElectronically'] = $requireSelfieAuthenticationToSignElectronically;
+
+        return $this;
+    }
+
+    /**
+     * Gets requireDatavalidAuthenticationToSignElectronically
+     *
+     * @return bool
+     */
+    public function getRequireDatavalidAuthenticationToSignElectronically()
+    {
+        return $this->container['requireDatavalidAuthenticationToSignElectronically'];
+    }
+
+    /**
+     * Sets requireDatavalidAuthenticationToSignElectronically
+     *
+     * @param bool $requireDatavalidAuthenticationToSignElectronically Requires the user to take a selfie to sign electronically. This selfie will be validated by SERPRO's Datavalid. (If Lacuna.Signer.Api.FlowActions.FlowActionCreateModel.AllowElectronicSignature is true)
+     *
+     * @return $this
+     */
+    public function setRequireDatavalidAuthenticationToSignElectronically($requireDatavalidAuthenticationToSignElectronically)
+    {
+        $this->container['requireDatavalidAuthenticationToSignElectronically'] = $requireDatavalidAuthenticationToSignElectronically;
+
+        return $this;
+    }
+
+    /**
+     * Gets requirePixAuthenticationToSignElectronically
+     *
+     * @return bool
+     */
+    public function getRequirePixAuthenticationToSignElectronically()
+    {
+        return $this->container['requirePixAuthenticationToSignElectronically'];
+    }
+
+    /**
+     * Sets requirePixAuthenticationToSignElectronically
+     *
+     * @param bool $requirePixAuthenticationToSignElectronically Requires the user to pay a Pix to sign electronically. (If Lacuna.Signer.Api.FlowActions.FlowActionCreateModel.AllowElectronicSignature is true)
+     *
+     * @return $this
+     */
+    public function setRequirePixAuthenticationToSignElectronically($requirePixAuthenticationToSignElectronically)
+    {
+        $this->container['requirePixAuthenticationToSignElectronically'] = $requirePixAuthenticationToSignElectronically;
 
         return $this;
     }

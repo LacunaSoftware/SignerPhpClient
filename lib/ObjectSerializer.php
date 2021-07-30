@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  Swagger\Client
+ * @package  Lacuna\Signer
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -32,7 +32,7 @@ namespace Lacuna\Signer;
  * ObjectSerializer Class Doc Comment
  *
  * @category Class
- * @package  Swagger\Client
+ * @package  Lacuna\Signer
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */

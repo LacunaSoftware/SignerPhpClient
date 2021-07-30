@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  Swagger\Client
+ * @package  Lacuna\Signer
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -13,9 +13,9 @@
 /**
  * Dropsigner (HML)
  *
- * <!--------------------------------------------------------------------------------------------------------------------->    <h2>Authentication</h2>    <p>   In order to call this APIs, you will need an <strong>API key</strong>. Set the API key in the header <span class=\"code\">X-Api-Key</span>:  </p>    <pre>X-Api-Key: your-app|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre>    <!--------------------------------------------------------------------------------------------------------------------->  <br />    <h2>HTTP Codes</h2>    <p>   The APIs will return the following HTTP codes:  </p>    <table>   <thead>    <tr>     <th>Code</th>     <th>Description</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">200 (OK)</strong></td>     <td>Request processed successfully. The response is different for each API, please refer to the operation's documentation</td>    </tr>    <tr>     <td><strong class=\"model-title\">400 (Bad Request)</strong></td>     <td>Syntax error. For instance, when a required field was not provided</td>    </tr>    <tr>     <td><strong class=\"model-title\">401 (Unauthorized)</strong></td>     <td>API key not provided or invalid</td>    </tr>    <tr>     <td><strong class=\"model-title\">403 (Forbidden)</strong></td>     <td>API key is valid, but the application has insufficient permissions to complete the requested operation</td>    </tr>    <tr>     <td><strong class=\"model-title\">422 (Unprocessable Entity)</strong></td>     <td>API error. The response is as defined in <a href=\"#model-ErrorModel\">ErrorModel</a></td>    </tr>   </tbody>  </table>    <br />    <h3>Error Codes</h3>    <p>Some of the error codes returned in a 422 response are provided bellow*:</p>    <ul>   <li>CertificateNotFound</li>   <li>DocumentNotFound</li>   <li>FolderNotFound</li>   <li>CpfMismatch</li>   <li>CpfNotExpected</li>   <li>InvalidFlowAction</li>   <li>DocumentInvalidKey</li>  </ul>    <p style=\"font-size: 0.9em\">   *The codes shown above are the main error codes. Nonetheless, this list is not comprehensive. New codes may be added anytime without previous warning.  </p>    <!--------------------------------------------------------------------------------------------------------------------->    <br />    <h2>Webhooks</h2>    <p>   It is recomended to subscribe to Webhook events <strong>instead</strong> of polling APIs. To do so, enable webhooks and register an URL that will receive a POST request   whenever one of the events bellow occur.  </p>  <p>   All requests have the format described in <a href=\"#model-Webhooks.WebhookModel\">Webhooks.WebhookModel</a>.   The data field varies according to the webhook event type:  </p>      <table>   <thead>    <tr>     <th>Event type</th>     <th>Description</th>     <th>Payload</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">DocumentSigned</strong></td>     <td>Triggered when a document is signed.</td>     <td><a href=\"#model-Webhooks.DocumentSignedModel\">Webhooks.DocumentSignedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentApproved</strong></td>     <td>Triggered when a document is approved.</td>     <td><a href=\"#model-Webhooks.DocumentApprovedModel\">Webhooks.DocumentApprovedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentRefused</strong></td>     <td>Triggered when a document is refused.</td>     <td><a href=\"#model-Webhooks.DocumentRefusedModel\">Webhooks.DocumentRefusedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentConcluded</strong></td>     <td>Triggered when the flow of a document is concluded.</td>     <td><a href=\"#model-Webhooks.DocumentConcludedModel\">Webhooks.DocumentConcludedModel</a></td>    </tr>   </tbody>  </table>    <p>   To register your application URL and enable Webhooks, access the integrations section in your <a href=\"/private/organizations\" target=\"_blank\">organization's details page</a>.  </p>
+ * <!--------------------------------------------------------------------------------------------------------------------->    <h2>Authentication</h2>    <p>   In order to call this APIs, you will need an <strong>API key</strong>. Set the API key in the header <span class=\"code\">X-Api-Key</span>:  </p>    <pre>X-Api-Key: your-app|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre>    <!--------------------------------------------------------------------------------------------------------------------->  <br />    <h2>HTTP Codes</h2>    <p>   The APIs will return the following HTTP codes:  </p>    <table>   <thead>    <tr>     <th>Code</th>     <th>Description</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">200 (OK)</strong></td>     <td>Request processed successfully. The response is different for each API, please refer to the operation's documentation</td>    </tr>    <tr>     <td><strong class=\"model-title\">400 (Bad Request)</strong></td>     <td>Syntax error. For instance, when a required field was not provided</td>    </tr>    <tr>     <td><strong class=\"model-title\">401 (Unauthorized)</strong></td>     <td>API key not provided or invalid</td>    </tr>    <tr>     <td><strong class=\"model-title\">403 (Forbidden)</strong></td>     <td>API key is valid, but the application has insufficient permissions to complete the requested operation</td>    </tr>    <tr>     <td><strong class=\"model-title\">422 (Unprocessable Entity)</strong></td>     <td>API error. The response is as defined in <a href=\"#model-ErrorModel\">ErrorModel</a></td>    </tr>   </tbody>  </table>    <br />    <h3>Error Codes</h3>    <p>Some of the error codes returned in a 422 response are provided bellow*:</p>    <ul>   <li>CertificateNotFound</li>   <li>DocumentNotFound</li>   <li>FolderNotFound</li>   <li>CpfMismatch</li>   <li>CpfNotExpected</li>   <li>InvalidFlowAction</li>   <li>DocumentInvalidKey</li>  </ul>    <p style=\"font-size: 0.9em\">   *The codes shown above are the main error codes. Nonetheless, this list is not comprehensive. New codes may be added anytime without previous warning.  </p>    <!--------------------------------------------------------------------------------------------------------------------->    <br />    <h2>Webhooks</h2>    <p>   It is recomended to subscribe to Webhook events <strong>instead</strong> of polling APIs. To do so, enable webhooks and register an URL that will receive a POST request   whenever one of the events bellow occur.  </p>  <p>   All requests have the format described in <a href=\"#model-Webhooks.WebhookModel\">Webhooks.WebhookModel</a>.   The data field varies according to the webhook event type:  </p>      <table>   <thead>    <tr>     <th>Event type</th>     <th>Description</th>     <th>Payload</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">DocumentSigned</strong></td>     <td>Triggered when a document is signed.</td>     <td><a href=\"#model-Webhooks.DocumentSignedModel\">Webhooks.DocumentSignedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentApproved</strong></td>     <td>Triggered when a document is approved.</td>     <td><a href=\"#model-Webhooks.DocumentApprovedModel\">Webhooks.DocumentApprovedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentRefused</strong></td>     <td>Triggered when a document is refused.</td>     <td><a href=\"#model-Webhooks.DocumentRefusedModel\">Webhooks.DocumentRefusedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentConcluded</strong></td>     <td>Triggered when the flow of a document is concluded.</td>     <td><a href=\"#model-Webhooks.DocumentConcludedModel\">Webhooks.DocumentConcludedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentCanceled</strong></td>     <td>Triggered when the document is canceled.</td>     <td><a href=\"#model-Webhooks.DocumentCanceledModel\">Webhooks.DocumentCanceledModel</a></td>    </tr>   </tbody>  </table>    <p>   To register your application URL and enable Webhooks, access the integrations section in your <a href=\"/private/organizations\" target=\"_blank\">organization's details page</a>.  </p>
  *
- * OpenAPI spec version: 1.28.0
+ * OpenAPI spec version: 1.33.1
  * 
  * Generated by: https://github.com/swagger-api/swagger-codegen.git
  * Swagger Codegen version: 3.0.20
@@ -35,7 +35,7 @@ use \Lacuna\Signer\ObjectSerializer;
  * SignatureEvidencesModel Class Doc Comment
  *
  * @category Class
- * @package  Swagger\Client
+ * @package  Lacuna\Signer
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -63,6 +63,7 @@ class SignatureEvidencesModel implements ModelInterface, ArrayAccess
 'authenticatedPhoneNumberLastDigits' => 'string',
 'authenticatedApplication' => '\Lacuna\Signer\Model\ApplicationsApplicationDisplayModel',
 'authenticatedSelfie' => '\Lacuna\Signer\Model\SignatureSelfieModel',
+'authenticatedPix' => '\Lacuna\Signer\Model\SignaturePixAuthenticationModel',
 'geolocation' => '\Lacuna\Signer\Model\SignatureGeolocationModel',
 'timestamp' => '\DateTime',
 'evidencesSha256' => 'string',
@@ -83,6 +84,7 @@ class SignatureEvidencesModel implements ModelInterface, ArrayAccess
 'authenticatedPhoneNumberLastDigits' => null,
 'authenticatedApplication' => null,
 'authenticatedSelfie' => null,
+'authenticatedPix' => null,
 'geolocation' => null,
 'timestamp' => 'date-time',
 'evidencesSha256' => null,
@@ -124,6 +126,7 @@ class SignatureEvidencesModel implements ModelInterface, ArrayAccess
 'authenticatedPhoneNumberLastDigits' => 'authenticatedPhoneNumberLastDigits',
 'authenticatedApplication' => 'authenticatedApplication',
 'authenticatedSelfie' => 'authenticatedSelfie',
+'authenticatedPix' => 'authenticatedPix',
 'geolocation' => 'geolocation',
 'timestamp' => 'timestamp',
 'evidencesSha256' => 'evidencesSha256',
@@ -144,6 +147,7 @@ class SignatureEvidencesModel implements ModelInterface, ArrayAccess
 'authenticatedPhoneNumberLastDigits' => 'setAuthenticatedPhoneNumberLastDigits',
 'authenticatedApplication' => 'setAuthenticatedApplication',
 'authenticatedSelfie' => 'setAuthenticatedSelfie',
+'authenticatedPix' => 'setAuthenticatedPix',
 'geolocation' => 'setGeolocation',
 'timestamp' => 'setTimestamp',
 'evidencesSha256' => 'setEvidencesSha256',
@@ -164,6 +168,7 @@ class SignatureEvidencesModel implements ModelInterface, ArrayAccess
 'authenticatedPhoneNumberLastDigits' => 'getAuthenticatedPhoneNumberLastDigits',
 'authenticatedApplication' => 'getAuthenticatedApplication',
 'authenticatedSelfie' => 'getAuthenticatedSelfie',
+'authenticatedPix' => 'getAuthenticatedPix',
 'geolocation' => 'getGeolocation',
 'timestamp' => 'getTimestamp',
 'evidencesSha256' => 'getEvidencesSha256',
@@ -236,6 +241,7 @@ class SignatureEvidencesModel implements ModelInterface, ArrayAccess
         $this->container['authenticatedPhoneNumberLastDigits'] = isset($data['authenticatedPhoneNumberLastDigits']) ? $data['authenticatedPhoneNumberLastDigits'] : null;
         $this->container['authenticatedApplication'] = isset($data['authenticatedApplication']) ? $data['authenticatedApplication'] : null;
         $this->container['authenticatedSelfie'] = isset($data['authenticatedSelfie']) ? $data['authenticatedSelfie'] : null;
+        $this->container['authenticatedPix'] = isset($data['authenticatedPix']) ? $data['authenticatedPix'] : null;
         $this->container['geolocation'] = isset($data['geolocation']) ? $data['geolocation'] : null;
         $this->container['timestamp'] = isset($data['timestamp']) ? $data['timestamp'] : null;
         $this->container['evidencesSha256'] = isset($data['evidencesSha256']) ? $data['evidencesSha256'] : null;
@@ -432,6 +438,30 @@ class SignatureEvidencesModel implements ModelInterface, ArrayAccess
     public function setAuthenticatedSelfie($authenticatedSelfie)
     {
         $this->container['authenticatedSelfie'] = $authenticatedSelfie;
+
+        return $this;
+    }
+
+    /**
+     * Gets authenticatedPix
+     *
+     * @return \Lacuna\Signer\Model\SignaturePixAuthenticationModel
+     */
+    public function getAuthenticatedPix()
+    {
+        return $this->container['authenticatedPix'];
+    }
+
+    /**
+     * Sets authenticatedPix
+     *
+     * @param \Lacuna\Signer\Model\SignaturePixAuthenticationModel $authenticatedPix authenticatedPix
+     *
+     * @return $this
+     */
+    public function setAuthenticatedPix($authenticatedPix)
+    {
+        $this->container['authenticatedPix'] = $authenticatedPix;
 
         return $this;
     }

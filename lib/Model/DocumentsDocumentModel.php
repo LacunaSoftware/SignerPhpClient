@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  Swagger\Client
+ * @package  Lacuna\Signer
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -13,9 +13,9 @@
 /**
  * Dropsigner (HML)
  *
- * <!--------------------------------------------------------------------------------------------------------------------->    <h2>Authentication</h2>    <p>   In order to call this APIs, you will need an <strong>API key</strong>. Set the API key in the header <span class=\"code\">X-Api-Key</span>:  </p>    <pre>X-Api-Key: your-app|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre>    <!--------------------------------------------------------------------------------------------------------------------->  <br />    <h2>HTTP Codes</h2>    <p>   The APIs will return the following HTTP codes:  </p>    <table>   <thead>    <tr>     <th>Code</th>     <th>Description</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">200 (OK)</strong></td>     <td>Request processed successfully. The response is different for each API, please refer to the operation's documentation</td>    </tr>    <tr>     <td><strong class=\"model-title\">400 (Bad Request)</strong></td>     <td>Syntax error. For instance, when a required field was not provided</td>    </tr>    <tr>     <td><strong class=\"model-title\">401 (Unauthorized)</strong></td>     <td>API key not provided or invalid</td>    </tr>    <tr>     <td><strong class=\"model-title\">403 (Forbidden)</strong></td>     <td>API key is valid, but the application has insufficient permissions to complete the requested operation</td>    </tr>    <tr>     <td><strong class=\"model-title\">422 (Unprocessable Entity)</strong></td>     <td>API error. The response is as defined in <a href=\"#model-ErrorModel\">ErrorModel</a></td>    </tr>   </tbody>  </table>    <br />    <h3>Error Codes</h3>    <p>Some of the error codes returned in a 422 response are provided bellow*:</p>    <ul>   <li>CertificateNotFound</li>   <li>DocumentNotFound</li>   <li>FolderNotFound</li>   <li>CpfMismatch</li>   <li>CpfNotExpected</li>   <li>InvalidFlowAction</li>   <li>DocumentInvalidKey</li>  </ul>    <p style=\"font-size: 0.9em\">   *The codes shown above are the main error codes. Nonetheless, this list is not comprehensive. New codes may be added anytime without previous warning.  </p>    <!--------------------------------------------------------------------------------------------------------------------->    <br />    <h2>Webhooks</h2>    <p>   It is recomended to subscribe to Webhook events <strong>instead</strong> of polling APIs. To do so, enable webhooks and register an URL that will receive a POST request   whenever one of the events bellow occur.  </p>  <p>   All requests have the format described in <a href=\"#model-Webhooks.WebhookModel\">Webhooks.WebhookModel</a>.   The data field varies according to the webhook event type:  </p>      <table>   <thead>    <tr>     <th>Event type</th>     <th>Description</th>     <th>Payload</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">DocumentSigned</strong></td>     <td>Triggered when a document is signed.</td>     <td><a href=\"#model-Webhooks.DocumentSignedModel\">Webhooks.DocumentSignedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentApproved</strong></td>     <td>Triggered when a document is approved.</td>     <td><a href=\"#model-Webhooks.DocumentApprovedModel\">Webhooks.DocumentApprovedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentRefused</strong></td>     <td>Triggered when a document is refused.</td>     <td><a href=\"#model-Webhooks.DocumentRefusedModel\">Webhooks.DocumentRefusedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentConcluded</strong></td>     <td>Triggered when the flow of a document is concluded.</td>     <td><a href=\"#model-Webhooks.DocumentConcludedModel\">Webhooks.DocumentConcludedModel</a></td>    </tr>   </tbody>  </table>    <p>   To register your application URL and enable Webhooks, access the integrations section in your <a href=\"/private/organizations\" target=\"_blank\">organization's details page</a>.  </p>
+ * <!--------------------------------------------------------------------------------------------------------------------->    <h2>Authentication</h2>    <p>   In order to call this APIs, you will need an <strong>API key</strong>. Set the API key in the header <span class=\"code\">X-Api-Key</span>:  </p>    <pre>X-Api-Key: your-app|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre>    <!--------------------------------------------------------------------------------------------------------------------->  <br />    <h2>HTTP Codes</h2>    <p>   The APIs will return the following HTTP codes:  </p>    <table>   <thead>    <tr>     <th>Code</th>     <th>Description</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">200 (OK)</strong></td>     <td>Request processed successfully. The response is different for each API, please refer to the operation's documentation</td>    </tr>    <tr>     <td><strong class=\"model-title\">400 (Bad Request)</strong></td>     <td>Syntax error. For instance, when a required field was not provided</td>    </tr>    <tr>     <td><strong class=\"model-title\">401 (Unauthorized)</strong></td>     <td>API key not provided or invalid</td>    </tr>    <tr>     <td><strong class=\"model-title\">403 (Forbidden)</strong></td>     <td>API key is valid, but the application has insufficient permissions to complete the requested operation</td>    </tr>    <tr>     <td><strong class=\"model-title\">422 (Unprocessable Entity)</strong></td>     <td>API error. The response is as defined in <a href=\"#model-ErrorModel\">ErrorModel</a></td>    </tr>   </tbody>  </table>    <br />    <h3>Error Codes</h3>    <p>Some of the error codes returned in a 422 response are provided bellow*:</p>    <ul>   <li>CertificateNotFound</li>   <li>DocumentNotFound</li>   <li>FolderNotFound</li>   <li>CpfMismatch</li>   <li>CpfNotExpected</li>   <li>InvalidFlowAction</li>   <li>DocumentInvalidKey</li>  </ul>    <p style=\"font-size: 0.9em\">   *The codes shown above are the main error codes. Nonetheless, this list is not comprehensive. New codes may be added anytime without previous warning.  </p>    <!--------------------------------------------------------------------------------------------------------------------->    <br />    <h2>Webhooks</h2>    <p>   It is recomended to subscribe to Webhook events <strong>instead</strong> of polling APIs. To do so, enable webhooks and register an URL that will receive a POST request   whenever one of the events bellow occur.  </p>  <p>   All requests have the format described in <a href=\"#model-Webhooks.WebhookModel\">Webhooks.WebhookModel</a>.   The data field varies according to the webhook event type:  </p>      <table>   <thead>    <tr>     <th>Event type</th>     <th>Description</th>     <th>Payload</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">DocumentSigned</strong></td>     <td>Triggered when a document is signed.</td>     <td><a href=\"#model-Webhooks.DocumentSignedModel\">Webhooks.DocumentSignedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentApproved</strong></td>     <td>Triggered when a document is approved.</td>     <td><a href=\"#model-Webhooks.DocumentApprovedModel\">Webhooks.DocumentApprovedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentRefused</strong></td>     <td>Triggered when a document is refused.</td>     <td><a href=\"#model-Webhooks.DocumentRefusedModel\">Webhooks.DocumentRefusedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentConcluded</strong></td>     <td>Triggered when the flow of a document is concluded.</td>     <td><a href=\"#model-Webhooks.DocumentConcludedModel\">Webhooks.DocumentConcludedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentCanceled</strong></td>     <td>Triggered when the document is canceled.</td>     <td><a href=\"#model-Webhooks.DocumentCanceledModel\">Webhooks.DocumentCanceledModel</a></td>    </tr>   </tbody>  </table>    <p>   To register your application URL and enable Webhooks, access the integrations section in your <a href=\"/private/organizations\" target=\"_blank\">organization's details page</a>.  </p>
  *
- * OpenAPI spec version: 1.28.0
+ * OpenAPI spec version: 1.33.1
  * 
  * Generated by: https://github.com/swagger-api/swagger-codegen.git
  * Swagger Codegen version: 3.0.20
@@ -35,7 +35,7 @@ use \Lacuna\Signer\ObjectSerializer;
  * DocumentsDocumentModel Class Doc Comment
  *
  * @category Class
- * @package  Swagger\Client
+ * @package  Lacuna\Signer
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -62,6 +62,7 @@ class DocumentsDocumentModel implements ModelInterface, ArrayAccess
 'observers' => '\Lacuna\Signer\Model\ObserversObserverModel[]',
 'attachments' => '\Lacuna\Signer\Model\AttachmentsAttachmentModel[]',
 'permissions' => '\Lacuna\Signer\Model\DocumentsDocumentPermissionsModel',
+'notifiedEmails' => 'string[]',
 'id' => 'string',
 'name' => 'string',
 'filename' => 'string',
@@ -74,10 +75,15 @@ class DocumentsDocumentModel implements ModelInterface, ArrayAccess
 'organization' => '\Lacuna\Signer\Model\OrganizationsOrganizationInfoModel',
 'creationDate' => '\DateTime',
 'updateDate' => '\DateTime',
+'expirationDate' => '\DateTime',
+'expirationDateWithoutTime' => 'string',
 'createdBy' => '\Lacuna\Signer\Model\DocumentsCreatorModel',
 'description' => 'string',
 'forceCadesSignature' => 'bool',
-'isScanned' => 'bool'    ];
+'isScanned' => 'bool',
+'isEnvelope' => 'bool',
+'statusUpdatedBy' => '\Lacuna\Signer\Model\AgentsAgentModel',
+'statusUpdateReason' => 'string'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -91,6 +97,7 @@ class DocumentsDocumentModel implements ModelInterface, ArrayAccess
 'observers' => null,
 'attachments' => null,
 'permissions' => null,
+'notifiedEmails' => null,
 'id' => 'uuid',
 'name' => null,
 'filename' => null,
@@ -103,10 +110,15 @@ class DocumentsDocumentModel implements ModelInterface, ArrayAccess
 'organization' => null,
 'creationDate' => 'date-time',
 'updateDate' => 'date-time',
+'expirationDate' => 'date-time',
+'expirationDateWithoutTime' => null,
 'createdBy' => null,
 'description' => null,
 'forceCadesSignature' => null,
-'isScanned' => null    ];
+'isScanned' => null,
+'isEnvelope' => null,
+'statusUpdatedBy' => null,
+'statusUpdateReason' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -141,6 +153,7 @@ class DocumentsDocumentModel implements ModelInterface, ArrayAccess
 'observers' => 'observers',
 'attachments' => 'attachments',
 'permissions' => 'permissions',
+'notifiedEmails' => 'notifiedEmails',
 'id' => 'id',
 'name' => 'name',
 'filename' => 'filename',
@@ -153,10 +166,15 @@ class DocumentsDocumentModel implements ModelInterface, ArrayAccess
 'organization' => 'organization',
 'creationDate' => 'creationDate',
 'updateDate' => 'updateDate',
+'expirationDate' => 'expirationDate',
+'expirationDateWithoutTime' => 'expirationDateWithoutTime',
 'createdBy' => 'createdBy',
 'description' => 'description',
 'forceCadesSignature' => 'forceCadesSignature',
-'isScanned' => 'isScanned'    ];
+'isScanned' => 'isScanned',
+'isEnvelope' => 'isEnvelope',
+'statusUpdatedBy' => 'statusUpdatedBy',
+'statusUpdateReason' => 'statusUpdateReason'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -170,6 +188,7 @@ class DocumentsDocumentModel implements ModelInterface, ArrayAccess
 'observers' => 'setObservers',
 'attachments' => 'setAttachments',
 'permissions' => 'setPermissions',
+'notifiedEmails' => 'setNotifiedEmails',
 'id' => 'setId',
 'name' => 'setName',
 'filename' => 'setFilename',
@@ -182,10 +201,15 @@ class DocumentsDocumentModel implements ModelInterface, ArrayAccess
 'organization' => 'setOrganization',
 'creationDate' => 'setCreationDate',
 'updateDate' => 'setUpdateDate',
+'expirationDate' => 'setExpirationDate',
+'expirationDateWithoutTime' => 'setExpirationDateWithoutTime',
 'createdBy' => 'setCreatedBy',
 'description' => 'setDescription',
 'forceCadesSignature' => 'setForceCadesSignature',
-'isScanned' => 'setIsScanned'    ];
+'isScanned' => 'setIsScanned',
+'isEnvelope' => 'setIsEnvelope',
+'statusUpdatedBy' => 'setStatusUpdatedBy',
+'statusUpdateReason' => 'setStatusUpdateReason'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -199,6 +223,7 @@ class DocumentsDocumentModel implements ModelInterface, ArrayAccess
 'observers' => 'getObservers',
 'attachments' => 'getAttachments',
 'permissions' => 'getPermissions',
+'notifiedEmails' => 'getNotifiedEmails',
 'id' => 'getId',
 'name' => 'getName',
 'filename' => 'getFilename',
@@ -211,10 +236,15 @@ class DocumentsDocumentModel implements ModelInterface, ArrayAccess
 'organization' => 'getOrganization',
 'creationDate' => 'getCreationDate',
 'updateDate' => 'getUpdateDate',
+'expirationDate' => 'getExpirationDate',
+'expirationDateWithoutTime' => 'getExpirationDateWithoutTime',
 'createdBy' => 'getCreatedBy',
 'description' => 'getDescription',
 'forceCadesSignature' => 'getForceCadesSignature',
-'isScanned' => 'getIsScanned'    ];
+'isScanned' => 'getIsScanned',
+'isEnvelope' => 'getIsEnvelope',
+'statusUpdatedBy' => 'getStatusUpdatedBy',
+'statusUpdateReason' => 'getStatusUpdateReason'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -280,6 +310,7 @@ class DocumentsDocumentModel implements ModelInterface, ArrayAccess
         $this->container['observers'] = isset($data['observers']) ? $data['observers'] : null;
         $this->container['attachments'] = isset($data['attachments']) ? $data['attachments'] : null;
         $this->container['permissions'] = isset($data['permissions']) ? $data['permissions'] : null;
+        $this->container['notifiedEmails'] = isset($data['notifiedEmails']) ? $data['notifiedEmails'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['name'] = isset($data['name']) ? $data['name'] : null;
         $this->container['filename'] = isset($data['filename']) ? $data['filename'] : null;
@@ -292,10 +323,15 @@ class DocumentsDocumentModel implements ModelInterface, ArrayAccess
         $this->container['organization'] = isset($data['organization']) ? $data['organization'] : null;
         $this->container['creationDate'] = isset($data['creationDate']) ? $data['creationDate'] : null;
         $this->container['updateDate'] = isset($data['updateDate']) ? $data['updateDate'] : null;
+        $this->container['expirationDate'] = isset($data['expirationDate']) ? $data['expirationDate'] : null;
+        $this->container['expirationDateWithoutTime'] = isset($data['expirationDateWithoutTime']) ? $data['expirationDateWithoutTime'] : null;
         $this->container['createdBy'] = isset($data['createdBy']) ? $data['createdBy'] : null;
         $this->container['description'] = isset($data['description']) ? $data['description'] : null;
         $this->container['forceCadesSignature'] = isset($data['forceCadesSignature']) ? $data['forceCadesSignature'] : null;
         $this->container['isScanned'] = isset($data['isScanned']) ? $data['isScanned'] : null;
+        $this->container['isEnvelope'] = isset($data['isEnvelope']) ? $data['isEnvelope'] : null;
+        $this->container['statusUpdatedBy'] = isset($data['statusUpdatedBy']) ? $data['statusUpdatedBy'] : null;
+        $this->container['statusUpdateReason'] = isset($data['statusUpdateReason']) ? $data['statusUpdateReason'] : null;
     }
 
     /**
@@ -462,6 +498,30 @@ class DocumentsDocumentModel implements ModelInterface, ArrayAccess
     public function setPermissions($permissions)
     {
         $this->container['permissions'] = $permissions;
+
+        return $this;
+    }
+
+    /**
+     * Gets notifiedEmails
+     *
+     * @return string[]
+     */
+    public function getNotifiedEmails()
+    {
+        return $this->container['notifiedEmails'];
+    }
+
+    /**
+     * Sets notifiedEmails
+     *
+     * @param string[] $notifiedEmails notifiedEmails
+     *
+     * @return $this
+     */
+    public function setNotifiedEmails($notifiedEmails)
+    {
+        $this->container['notifiedEmails'] = $notifiedEmails;
 
         return $this;
     }
@@ -755,6 +815,54 @@ class DocumentsDocumentModel implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets expirationDate
+     *
+     * @return \DateTime
+     */
+    public function getExpirationDate()
+    {
+        return $this->container['expirationDate'];
+    }
+
+    /**
+     * Sets expirationDate
+     *
+     * @param \DateTime $expirationDate The expiration date of the document in the default timezone.
+     *
+     * @return $this
+     */
+    public function setExpirationDate($expirationDate)
+    {
+        $this->container['expirationDate'] = $expirationDate;
+
+        return $this;
+    }
+
+    /**
+     * Gets expirationDateWithoutTime
+     *
+     * @return string
+     */
+    public function getExpirationDateWithoutTime()
+    {
+        return $this->container['expirationDateWithoutTime'];
+    }
+
+    /**
+     * Sets expirationDateWithoutTime
+     *
+     * @param string $expirationDateWithoutTime The expiration date without time: in yyyy-MM-dd format (useful for display purposes).
+     *
+     * @return $this
+     */
+    public function setExpirationDateWithoutTime($expirationDateWithoutTime)
+    {
+        $this->container['expirationDateWithoutTime'] = $expirationDateWithoutTime;
+
+        return $this;
+    }
+
+    /**
      * Gets createdBy
      *
      * @return \Lacuna\Signer\Model\DocumentsCreatorModel
@@ -846,6 +954,78 @@ class DocumentsDocumentModel implements ModelInterface, ArrayAccess
     public function setIsScanned($isScanned)
     {
         $this->container['isScanned'] = $isScanned;
+
+        return $this;
+    }
+
+    /**
+     * Gets isEnvelope
+     *
+     * @return bool
+     */
+    public function getIsEnvelope()
+    {
+        return $this->container['isEnvelope'];
+    }
+
+    /**
+     * Sets isEnvelope
+     *
+     * @param bool $isEnvelope True if the document is an envelope (Lacuna.Signer.Api.Documents.CreateDocumentRequest.IsEnvelope).
+     *
+     * @return $this
+     */
+    public function setIsEnvelope($isEnvelope)
+    {
+        $this->container['isEnvelope'] = $isEnvelope;
+
+        return $this;
+    }
+
+    /**
+     * Gets statusUpdatedBy
+     *
+     * @return \Lacuna\Signer\Model\AgentsAgentModel
+     */
+    public function getStatusUpdatedBy()
+    {
+        return $this->container['statusUpdatedBy'];
+    }
+
+    /**
+     * Sets statusUpdatedBy
+     *
+     * @param \Lacuna\Signer\Model\AgentsAgentModel $statusUpdatedBy statusUpdatedBy
+     *
+     * @return $this
+     */
+    public function setStatusUpdatedBy($statusUpdatedBy)
+    {
+        $this->container['statusUpdatedBy'] = $statusUpdatedBy;
+
+        return $this;
+    }
+
+    /**
+     * Gets statusUpdateReason
+     *
+     * @return string
+     */
+    public function getStatusUpdateReason()
+    {
+        return $this->container['statusUpdateReason'];
+    }
+
+    /**
+     * Sets statusUpdateReason
+     *
+     * @param string $statusUpdateReason The reason for the status update (see \"StatusUpdatedBy\" property).
+     *
+     * @return $this
+     */
+    public function setStatusUpdateReason($statusUpdateReason)
+    {
+        $this->container['statusUpdateReason'] = $statusUpdateReason;
 
         return $this;
     }

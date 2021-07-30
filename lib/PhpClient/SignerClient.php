@@ -58,7 +58,7 @@ class SignerClient
      */
     function createDocument($request)
     {
-        $response = $this->getRestClient()->post("/api/documents", $request);
+        $response = $this->getRestClient()->post("api/documents", $request);
         $result = array();
         foreach ($response as $element) {
             array_push($result, new DocumentsCreateDocumentResult($element));
@@ -72,7 +72,7 @@ class SignerClient
      */
     function getDocumentDetails($id)
     {
-        $requestUri = "/api/documents/" . $id;
+        $requestUri = "api/documents/" . $id;
         $restClient = $this->getRestClient();
         $result = $restClient->get($requestUri);
 
@@ -84,7 +84,7 @@ class SignerClient
      */
     function getDocumentDownloadTicket($id, $type)
     {
-        $requestUri = "/api/documents/" . $id . "/ticket?type=" . $type;
+        $requestUri = "api/documents/" . $id . "/ticket?type=" . $type;
         $ticket = new TicketModel($this->getRestClient()->get($requestUri));
         return $ticket;
     }
@@ -94,7 +94,7 @@ class SignerClient
      */
     function getDocumentContent($id, $type)
     {
-        $requestUri = "/api/documents/" . $id . "/content?type=" . $type;
+        $requestUri = "api/documents/" . $id . "/content?type=" . $type;
         $document = $this->getRestClient()->getStream($requestUri);
         return $document;
     }
@@ -104,7 +104,7 @@ class SignerClient
      * @throws Exception
      */
     function UpdateInvoiceStatus($id, $request) {
-        $requestUri = "/api/invoices/" . $id ."/payment";
+        $requestUri = "api/invoices/" . $id ."/payment";
         return $this->getRestClient()->put($requestUri, $request);
     }
 
@@ -113,7 +113,7 @@ class SignerClient
      */
     function GetDocumentContentBytesAsync($id, $type)
     {
-        $requestUri = "/api/documents/" . $id . "/content-b64?type=" . $type;
+        $requestUri = "api/documents/" . $id . "/content-b64?type=" . $type;
         $document = $this->getRestClient()->get($requestUri);
         return $document;
     }
@@ -125,7 +125,7 @@ class SignerClient
      */
     function uploadFile($name, $file, $mimeType)
     {
-        $requestUri = "/api/uploads";
+        $requestUri = "api/uploads";
         $restClient = $this->getRestClient();
 
         $result = $restClient->postMultiPart($requestUri, $file, $name, $mimeType);
@@ -139,7 +139,7 @@ class SignerClient
      */
     function deleteDocument($id)
     {
-        $requestUri = "/api/documents/" . $id;
+        $requestUri = "api/documents/" . $id;
         $restClient = $this->getRestClient();
         $restClient->delete($requestUri);
     }
@@ -150,7 +150,7 @@ class SignerClient
      */
     function listFoldersPaginated($searchParams, $organizationId)
     {
-        $requestUri = "/api/folders" . $this->buildSearchPaginatedParamsString($searchParams) . "&organizationId=" . $this->getParameterOrEmpty($organizationId);
+        $requestUri = "api/folders" . $this->buildSearchPaginatedParamsString($searchParams) . "&organizationId=" . $this->getParameterOrEmpty($organizationId);
         $response = $this->getRestClient()->get($requestUri);
 
         $result = array();
@@ -172,7 +172,7 @@ class SignerClient
      */
     function listDocuments($searchParams)
     {
-        $requestUri = "/api/documents?" . $this->buildSearchDocumentListString($searchParams);
+        $requestUri = "api/documents?" . $this->buildSearchDocumentListString($searchParams);
         $response = $this->getRestClient()->get($requestUri);
 
         $result = array();
@@ -190,7 +190,7 @@ class SignerClient
 
     function getActionUrl($documentId, $request)
     {
-        $requestUri = "/api/documents/" . $documentId . "/action-url";
+        $requestUri = "api/documents/" . $documentId . "/action-url";
 
         $response = $this->getRestClient()->post($requestUri, $request);
 
@@ -207,7 +207,7 @@ class SignerClient
         $request = new NotificationsCreateFlowActionReminderRequest();
         $request->setDocumentId($documentId);
         $request->setFlowActionId($flowActionId);
-        $this->getRestClient()->post("/api/notifications/flow-action-reminder", $request);
+        $this->getRestClient()->post("api/notifications/flow-action-reminder", $request);
     }
 
     // endregion

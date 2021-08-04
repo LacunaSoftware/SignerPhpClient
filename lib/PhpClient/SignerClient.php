@@ -76,7 +76,7 @@ class SignerClient
      */
     function refuseDocument($id, $request)
     {
-        $requestUri = "api/documents/" . $id . "/cancellation";
+        $requestUri = "api/documents/" . $id . "/refusal";
         $this->getRestClient()->post($requestUri, $request);
 
     }

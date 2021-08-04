@@ -223,7 +223,7 @@ class RestClient
 
     function handleEndPoint($endPoint)
     {
-        return str_replace('/', '', $endPoint);
+        return rtrim($endPoint, '/');
     }
 
     function jsonEncode($json)

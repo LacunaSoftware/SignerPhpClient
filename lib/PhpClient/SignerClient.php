@@ -5,6 +5,7 @@ namespace Lacuna\Signer\PhpClient;
 use Exception;
 use Lacuna\Signer\Model\DocumentsCancelDocumentRequest;
 use Lacuna\Signer\Model\DocumentsCreateDocumentResult;
+use Lacuna\Signer\Model\DocumentsDocumentAddVersionRequest;
 use Lacuna\Signer\Model\DocumentsDocumentListModel;
 use Lacuna\Signer\Model\FoldersFolderInfoModel;
 use Lacuna\Signer\Model\NotificationsCreateFlowActionReminderRequest;
@@ -89,6 +90,18 @@ class SignerClient
     function cancelDocument($id, $request)
     {
         $requestUri = "/api/documents/" . $id . "/cancellation";
+        $this->getRestClient()->post($requestUri, $request);
+
+    }
+
+    /**
+     * @param string $id
+     * @param DocumentsDocumentAddVersionRequest $request
+     * @throws Exception
+     */
+    function addNewDocumentVersion($id, $request)
+    {
+        $requestUri = "/api/documents/" . $id . "/versions";
         $this->getRestClient()->post($requestUri, $request);
 
     }

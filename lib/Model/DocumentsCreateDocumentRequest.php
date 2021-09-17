@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  Swagger\Client
+ * @package  Lacuna\Signer
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -13,9 +13,9 @@
 /**
  * Dropsigner (HML)
  *
- * <!--------------------------------------------------------------------------------------------------------------------->    <h2>Authentication</h2>    <p>   In order to call this APIs, you will need an <strong>API key</strong>. Set the API key in the header <span class=\"code\">X-Api-Key</span>:  </p>    <pre>X-Api-Key: your-app|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre>    <!--------------------------------------------------------------------------------------------------------------------->  <br />    <h2>HTTP Codes</h2>    <p>   The APIs will return the following HTTP codes:  </p>    <table>   <thead>    <tr>     <th>Code</th>     <th>Description</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">200 (OK)</strong></td>     <td>Request processed successfully. The response is different for each API, please refer to the operation's documentation</td>    </tr>    <tr>     <td><strong class=\"model-title\">400 (Bad Request)</strong></td>     <td>Syntax error. For instance, when a required field was not provided</td>    </tr>    <tr>     <td><strong class=\"model-title\">401 (Unauthorized)</strong></td>     <td>API key not provided or invalid</td>    </tr>    <tr>     <td><strong class=\"model-title\">403 (Forbidden)</strong></td>     <td>API key is valid, but the application has insufficient permissions to complete the requested operation</td>    </tr>    <tr>     <td><strong class=\"model-title\">422 (Unprocessable Entity)</strong></td>     <td>API error. The response is as defined in <a href=\"#model-ErrorModel\">ErrorModel</a></td>    </tr>   </tbody>  </table>    <br />    <h3>Error Codes</h3>    <p>Some of the error codes returned in a 422 response are provided bellow*:</p>    <ul>   <li>CertificateNotFound</li>   <li>DocumentNotFound</li>   <li>FolderNotFound</li>   <li>CpfMismatch</li>   <li>CpfNotExpected</li>   <li>InvalidFlowAction</li>   <li>DocumentInvalidKey</li>  </ul>    <p style=\"font-size: 0.9em\">   *The codes shown above are the main error codes. Nonetheless, this list is not comprehensive. New codes may be added anytime without previous warning.  </p>    <!--------------------------------------------------------------------------------------------------------------------->    <br />    <h2>Webhooks</h2>    <p>   It is recomended to subscribe to Webhook events <strong>instead</strong> of polling APIs. To do so, enable webhooks and register an URL that will receive a POST request   whenever one of the events bellow occur.  </p>  <p>   All requests have the format described in <a href=\"#model-Webhooks.WebhookModel\">Webhooks.WebhookModel</a>.   The data field varies according to the webhook event type:  </p>      <table>   <thead>    <tr>     <th>Event type</th>     <th>Description</th>     <th>Payload</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">DocumentSigned</strong></td>     <td>Triggered when a document is signed.</td>     <td><a href=\"#model-Webhooks.DocumentSignedModel\">Webhooks.DocumentSignedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentApproved</strong></td>     <td>Triggered when a document is approved.</td>     <td><a href=\"#model-Webhooks.DocumentApprovedModel\">Webhooks.DocumentApprovedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentRefused</strong></td>     <td>Triggered when a document is refused.</td>     <td><a href=\"#model-Webhooks.DocumentRefusedModel\">Webhooks.DocumentRefusedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentConcluded</strong></td>     <td>Triggered when the flow of a document is concluded.</td>     <td><a href=\"#model-Webhooks.DocumentConcludedModel\">Webhooks.DocumentConcludedModel</a></td>    </tr>   </tbody>  </table>    <p>   To register your application URL and enable Webhooks, access the integrations section in your <a href=\"/private/organizations\" target=\"_blank\">organization's details page</a>.  </p>
+ * <!--------------------------------------------------------------------------------------------------------------------->    <h2>Authentication</h2>    <p>   In order to call this APIs, you will need an <strong>API key</strong>. Set the API key in the header <span class=\"code\">X-Api-Key</span>:  </p>    <pre>X-Api-Key: your-app|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre>    <!--------------------------------------------------------------------------------------------------------------------->  <br />    <h2>HTTP Codes</h2>    <p>   The APIs will return the following HTTP codes:  </p>    <table>   <thead>    <tr>     <th>Code</th>     <th>Description</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">200 (OK)</strong></td>     <td>Request processed successfully. The response is different for each API, please refer to the operation's documentation</td>    </tr>    <tr>     <td><strong class=\"model-title\">400 (Bad Request)</strong></td>     <td>Syntax error. For instance, when a required field was not provided</td>    </tr>    <tr>     <td><strong class=\"model-title\">401 (Unauthorized)</strong></td>     <td>API key not provided or invalid</td>    </tr>    <tr>     <td><strong class=\"model-title\">403 (Forbidden)</strong></td>     <td>API key is valid, but the application has insufficient permissions to complete the requested operation</td>    </tr>    <tr>     <td><strong class=\"model-title\">422 (Unprocessable Entity)</strong></td>     <td>API error. The response is as defined in <a href=\"#model-ErrorModel\">ErrorModel</a></td>    </tr>   </tbody>  </table>    <br />    <h3>Error Codes</h3>    <p>Some of the error codes returned in a 422 response are provided bellow*:</p>    <ul>   <li>CertificateNotFound</li>   <li>DocumentNotFound</li>   <li>FolderNotFound</li>   <li>CpfMismatch</li>   <li>CpfNotExpected</li>   <li>InvalidFlowAction</li>   <li>DocumentInvalidKey</li>  </ul>    <p style=\"font-size: 0.9em\">   *The codes shown above are the main error codes. Nonetheless, this list is not comprehensive. New codes may be added anytime without previous warning.  </p>    <!--------------------------------------------------------------------------------------------------------------------->    <br />    <h2>Webhooks</h2>    <p>   It is recomended to subscribe to Webhook events <strong>instead</strong> of polling APIs. To do so, enable webhooks and register an URL that will receive a POST request   whenever one of the events bellow occur.  </p>  <p>   All requests have the format described in <a href=\"#model-Webhooks.WebhookModel\">Webhooks.WebhookModel</a>.   The data field varies according to the webhook event type:  </p>      <table>   <thead>    <tr>     <th>Event type</th>     <th>Description</th>     <th>Payload</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">DocumentSigned</strong></td>     <td>Triggered when a document is signed.</td>     <td><a href=\"#model-Webhooks.DocumentSignedModel\">Webhooks.DocumentSignedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentApproved</strong></td>     <td>Triggered when a document is approved.</td>     <td><a href=\"#model-Webhooks.DocumentApprovedModel\">Webhooks.DocumentApprovedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentRefused</strong></td>     <td>Triggered when a document is refused.</td>     <td><a href=\"#model-Webhooks.DocumentRefusedModel\">Webhooks.DocumentRefusedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentConcluded</strong></td>     <td>Triggered when the flow of a document is concluded.</td>     <td><a href=\"#model-Webhooks.DocumentConcludedModel\">Webhooks.DocumentConcludedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentCanceled</strong></td>     <td>Triggered when the document is canceled.</td>     <td><a href=\"#model-Webhooks.DocumentCanceledModel\">Webhooks.DocumentCanceledModel</a></td>    </tr>   </tbody>  </table>    <p>   To register your application URL and enable Webhooks, access the integrations section in your <a href=\"/private/organizations\" target=\"_blank\">organization's details page</a>.  </p>
  *
- * OpenAPI spec version: 1.28.0
+ * OpenAPI spec version: 1.33.1
  * 
  * Generated by: https://github.com/swagger-api/swagger-codegen.git
  * Swagger Codegen version: 3.0.20
@@ -29,14 +29,13 @@
 namespace Lacuna\Signer\Model;
 
 use \ArrayAccess;
-use Lacuna\Signer\ObjectSerializer;
-
+use \Lacuna\Signer\ObjectSerializer;
 
 /**
  * DocumentsCreateDocumentRequest Class Doc Comment
  *
  * @category Class
- * @package  Swagger\Client
+ * @package  Lacuna\Signer
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -59,13 +58,17 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'files' => '\Lacuna\Signer\Model\FileUploadModel[]',
 'attachments' => '\Lacuna\Signer\Model\AttachmentsAttachmentUploadModel[]',
+'isEnvelope' => 'bool',
+'envelopeName' => 'string',
 'folderId' => 'string',
 'description' => 'string',
 'flowActions' => '\Lacuna\Signer\Model\FlowActionsFlowActionCreateModel[]',
 'observers' => '\Lacuna\Signer\Model\ObserversObserverCreateModel[]',
 'disablePendingActionNotifications' => 'bool',
 'newFolderName' => 'string',
-'forceCadesSignature' => 'bool'    ];
+'forceCadesSignature' => 'bool',
+'notifiedEmails' => 'string[]',
+'expirationDate' => '\DateTime'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -75,13 +78,17 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'files' => null,
 'attachments' => null,
+'isEnvelope' => null,
+'envelopeName' => null,
 'folderId' => 'uuid',
 'description' => null,
 'flowActions' => null,
 'observers' => null,
 'disablePendingActionNotifications' => null,
 'newFolderName' => null,
-'forceCadesSignature' => null    ];
+'forceCadesSignature' => null,
+'notifiedEmails' => null,
+'expirationDate' => 'date-time'    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -112,13 +119,17 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'files' => 'files',
 'attachments' => 'attachments',
+'isEnvelope' => 'isEnvelope',
+'envelopeName' => 'envelopeName',
 'folderId' => 'folderId',
 'description' => 'description',
 'flowActions' => 'flowActions',
 'observers' => 'observers',
 'disablePendingActionNotifications' => 'disablePendingActionNotifications',
 'newFolderName' => 'newFolderName',
-'forceCadesSignature' => 'forceCadesSignature'    ];
+'forceCadesSignature' => 'forceCadesSignature',
+'notifiedEmails' => 'notifiedEmails',
+'expirationDate' => 'expirationDate'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -128,13 +139,17 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
     protected static $setters = [
         'files' => 'setFiles',
 'attachments' => 'setAttachments',
+'isEnvelope' => 'setIsEnvelope',
+'envelopeName' => 'setEnvelopeName',
 'folderId' => 'setFolderId',
 'description' => 'setDescription',
 'flowActions' => 'setFlowActions',
 'observers' => 'setObservers',
 'disablePendingActionNotifications' => 'setDisablePendingActionNotifications',
 'newFolderName' => 'setNewFolderName',
-'forceCadesSignature' => 'setForceCadesSignature'    ];
+'forceCadesSignature' => 'setForceCadesSignature',
+'notifiedEmails' => 'setNotifiedEmails',
+'expirationDate' => 'setExpirationDate'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -144,13 +159,17 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
     protected static $getters = [
         'files' => 'getFiles',
 'attachments' => 'getAttachments',
+'isEnvelope' => 'getIsEnvelope',
+'envelopeName' => 'getEnvelopeName',
 'folderId' => 'getFolderId',
 'description' => 'getDescription',
 'flowActions' => 'getFlowActions',
 'observers' => 'getObservers',
 'disablePendingActionNotifications' => 'getDisablePendingActionNotifications',
 'newFolderName' => 'getNewFolderName',
-'forceCadesSignature' => 'getForceCadesSignature'    ];
+'forceCadesSignature' => 'getForceCadesSignature',
+'notifiedEmails' => 'getNotifiedEmails',
+'expirationDate' => 'getExpirationDate'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -212,6 +231,8 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
     {
         $this->container['files'] = isset($data['files']) ? $data['files'] : null;
         $this->container['attachments'] = isset($data['attachments']) ? $data['attachments'] : null;
+        $this->container['isEnvelope'] = isset($data['isEnvelope']) ? $data['isEnvelope'] : null;
+        $this->container['envelopeName'] = isset($data['envelopeName']) ? $data['envelopeName'] : null;
         $this->container['folderId'] = isset($data['folderId']) ? $data['folderId'] : null;
         $this->container['description'] = isset($data['description']) ? $data['description'] : null;
         $this->container['flowActions'] = isset($data['flowActions']) ? $data['flowActions'] : null;
@@ -219,6 +240,8 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
         $this->container['disablePendingActionNotifications'] = isset($data['disablePendingActionNotifications']) ? $data['disablePendingActionNotifications'] : null;
         $this->container['newFolderName'] = isset($data['newFolderName']) ? $data['newFolderName'] : null;
         $this->container['forceCadesSignature'] = isset($data['forceCadesSignature']) ? $data['forceCadesSignature'] : null;
+        $this->container['notifiedEmails'] = isset($data['notifiedEmails']) ? $data['notifiedEmails'] : null;
+        $this->container['expirationDate'] = isset($data['expirationDate']) ? $data['expirationDate'] : null;
     }
 
     /**
@@ -264,7 +287,7 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
     /**
      * Sets files
      *
-     *
+     * @param \Lacuna\Signer\Model\FileUploadModel[] $files The files to submit. Each file will create a document.
      *
      * @return $this
      */
@@ -295,6 +318,54 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
     public function setAttachments($attachments)
     {
         $this->container['attachments'] = $attachments;
+
+        return $this;
+    }
+
+    /**
+     * Gets isEnvelope
+     *
+     * @return bool
+     */
+    public function getIsEnvelope()
+    {
+        return $this->container['isEnvelope'];
+    }
+
+    /**
+     * Sets isEnvelope
+     *
+     * @param bool $isEnvelope If true, groups all files into a single document (the envelope). All files must be in PDF format.
+     *
+     * @return $this
+     */
+    public function setIsEnvelope($isEnvelope)
+    {
+        $this->container['isEnvelope'] = $isEnvelope;
+
+        return $this;
+    }
+
+    /**
+     * Gets envelopeName
+     *
+     * @return string
+     */
+    public function getEnvelopeName()
+    {
+        return $this->container['envelopeName'];
+    }
+
+    /**
+     * Sets envelopeName
+     *
+     * @param string $envelopeName The name of the document if the envelope option is enabled (see \"IsEnvelope\" property).
+     *
+     * @return $this
+     */
+    public function setEnvelopeName($envelopeName)
+    {
+        $this->container['envelopeName'] = $envelopeName;
 
         return $this;
     }
@@ -466,6 +537,54 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
+    /**
+     * Gets notifiedEmails
+     *
+     * @return string[]
+     */
+    public function getNotifiedEmails()
+    {
+        return $this->container['notifiedEmails'];
+    }
+
+    /**
+     * Sets notifiedEmails
+     *
+     * @param string[] $notifiedEmails The emails to notify when the document is concluded.
+     *
+     * @return $this
+     */
+    public function setNotifiedEmails($notifiedEmails)
+    {
+        $this->container['notifiedEmails'] = $notifiedEmails;
+
+        return $this;
+    }
+
+    /**
+     * Gets expirationDate
+     *
+     * @return \DateTime
+     */
+    public function getExpirationDate()
+    {
+        return $this->container['expirationDate'];
+    }
+
+    /**
+     * Sets expirationDate
+     *
+     * @param \DateTime $expirationDate The expiration date of the document. Any time information will be discarded, as the expiration will be set   to the last time available for the chosen date in the default timezone.
+     *
+     * @return $this
+     */
+    public function setExpirationDate($expirationDate)
+    {
+        $this->container['expirationDate'] = $expirationDate;
+
+        return $this;
+    }
     /**
      * Returns true if offset exists. False otherwise.
      *
@@ -527,7 +646,6 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
     public function __toString()
     {
         if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-
             return json_encode(
                 ObjectSerializer::sanitizeForSerialization($this),
                 JSON_PRETTY_PRINT

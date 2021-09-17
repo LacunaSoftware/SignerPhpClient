@@ -25,7 +25,7 @@ class RestClient
 
     public function __construct($endpointUri, $apiKey, $usePhpCAInfo = false, $caInfoPath = null)
     {
-        $this->endpointUri = $endpointUri;
+        $this->endpointUri = $this->handleEndPoint($endpointUri);
         $this->apiKey = $apiKey;
 
         $this->usePhpCAInfo = $usePhpCAInfo;
@@ -221,6 +221,10 @@ class RestClient
         }
     }
 
+    function handleEndPoint($endPoint)
+    {
+        return rtrim($endPoint, '/');
+    }
 
     function jsonEncode($json)
     {

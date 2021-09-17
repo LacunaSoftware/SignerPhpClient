@@ -3,12 +3,15 @@
 namespace Lacuna\Signer\PhpClient;
 
 use Exception;
+use Lacuna\Signer\Model\DocumentsCancelDocumentRequest;
 use Lacuna\Signer\Model\DocumentsCreateDocumentResult;
+use Lacuna\Signer\Model\DocumentsDocumentAddVersionRequest;
 use Lacuna\Signer\Model\DocumentsDocumentListModel;
 use Lacuna\Signer\Model\FoldersFolderInfoModel;
 use Lacuna\Signer\Model\NotificationsCreateFlowActionReminderRequest;
 use Lacuna\Signer\Model\PaginatedSearchResponseDocumentsDocumentListModel;
 use Lacuna\Signer\Model\PaginatedSearchResponseFoldersFolderInfoModel;
+use Lacuna\Signer\Model\RefusalRefusalRequest;
 use Lacuna\Signer\Model\TicketModel;
 use Lacuna\Signer\PhpClient\Params\DocumentListParameters;
 use Lacuna\Signer\PhpClient\Params\PaginatedSearchParams;
@@ -64,6 +67,43 @@ class SignerClient
             array_push($result, new DocumentsCreateDocumentResult($element));
         }
         return $result;
+    }
+
+
+    /**
+     * @param string $id
+     * @param RefusalRefusalRequest $request
+     * @throws Exception
+     */
+    function refuseDocument($id, $request)
+    {
+        $requestUri = "/api/documents/" . $id . "/refusal";
+        $this->getRestClient()->post($requestUri, $request);
+
+    }
+
+    /**
+     * @param string $id
+     * @param DocumentsCancelDocumentRequest $request
+     * @throws Exception
+     */
+    function cancelDocument($id, $request)
+    {
+        $requestUri = "/api/documents/" . $id . "/cancellation";
+        $this->getRestClient()->post($requestUri, $request);
+
+    }
+
+    /**
+     * @param string $id
+     * @param DocumentsDocumentAddVersionRequest $request
+     * @throws Exception
+     */
+    function addNewDocumentVersion($id, $request)
+    {
+        $requestUri = "/api/documents/" . $id . "/versions";
+        $this->getRestClient()->post($requestUri, $request);
+
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * NotarizationStatus
+ * CertificateTypes
  *
  * PHP version 5
  *
@@ -30,21 +30,28 @@ namespace Lacuna\Signer\Model;
 use \Lacuna\Signer\ObjectSerializer;
 
 /**
- * NotarizationStatus Class Doc Comment
+ * CertificateTypes Class Doc Comment
  *
  * @category Class
  * @package  Lacuna\Signer
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class NotarizationStatus
+class CertificateTypes
 {
     /**
      * Possible values of this enum
      */
-    const PENDING = 'Pending';
-const NOTARIZED = 'Notarized';
-const REJECTED = 'Rejected';
+    const A1 = 'A1';
+const A2 = 'A2';
+const A3 = 'A3';
+const A4 = 'A4';
+const S1 = 'S1';
+const S2 = 'S2';
+const S3 = 'S3';
+const S4 = 'S4';
+const T3 = 'T3';
+const T4 = 'T4';
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -52,8 +59,15 @@ const REJECTED = 'Rejected';
     public static function getAllowableEnumValues()
     {
         return [
-            self::PENDING,
-self::NOTARIZED,
-self::REJECTED,        ];
+            self::A1,
+self::A2,
+self::A3,
+self::A4,
+self::S1,
+self::S2,
+self::S3,
+self::S4,
+self::T3,
+self::T4,        ];
     }
 }

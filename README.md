@@ -7,7 +7,7 @@ This library contains classes that encapsulate the calls to the Signer API.
 The recommended way to install **Signer client lib** is through [Composer](http://getcomposer.org):
 
     "require": {
-        "lacuna/signer-client" : "1.3.1"
+        "lacuna/signer-client" : "1.4.1"
     }
 
 

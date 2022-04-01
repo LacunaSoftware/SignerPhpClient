@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Lacuna\Scenarios\DocumentGeneration;
+namespace Lacuna\Signer\Model;
 
 use \ArrayAccess;
 use \Lacuna\Signer\ObjectSerializer;

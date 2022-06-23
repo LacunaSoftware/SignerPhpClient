@@ -254,6 +254,16 @@ class SignerClient
        
         return $result;
     }
+      
+    // region FLOW
+    /**
+     * @throws Exception
+     */
+    function editFlow($id, $request) {
+        $requestUri = "/api/documents/{$id}/flow";
+        return $this->getRestClient()->post($requestUri, $request);
+    }
+    // endregion
  
 
     // region NOTIFICATIONS

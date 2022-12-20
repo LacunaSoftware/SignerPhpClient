@@ -175,6 +175,16 @@ class SignerClient
         return $result;
     }
 
+    function uploadFileBytes($fileBase64Request)
+    {
+        $requestUri = "/api/uploads/bytes";
+        $restClient = $this->getRestClient();
+
+        $result = $restClient->post($requestUri, base64_encode($fileBase64Request));
+
+        return $result;
+    }
+
     /**
      * @param string $id
      * @throws Exception

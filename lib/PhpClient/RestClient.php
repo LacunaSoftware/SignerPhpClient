@@ -27,6 +27,8 @@ class RestClient
     {
         $this->endpointUri = $this->handleEndPoint($endpointUri);
         $this->apiKey = $apiKey;
+        $this->segmentedUploadThreshold = 10485760;
+        $this->uploadSegmentLength = 2097152;
 
         $this->usePhpCAInfo = $usePhpCAInfo;
 
@@ -143,32 +145,85 @@ class RestClient
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function postMultiPart($requestUri, $file, $name, $mimeType)
+    function postMultiPart($requestUri, $file, $name, $mimeType, $filePath)
     {
+        if(filesize($filePath) < $this->segmentedUploadThreshold){
+            echo("smaller than the threshold!");
+            $client = $this->getClient();
+            $uri = $this->endpointUri . $requestUri;
 
+            $result = $client->request('POST', $uri, [
+                'multipart' => [
+                    [
+                        'name' => 'content',
+                        'contents' => $file,
+                    ],
+                    [
+                        'name' => 'name',
+                        'contents' => $name,
+                    ],
+                    [
+                        'name' => 'contentType',
+                        'contents' => $mimeType,
+                    ],
+                    ]
+                ]);
+                
+            return json_decode($result->getBody());
+        } else {
+            echo("bigger than the threshold!");
+            return $this->postMultiPartSegmentendly($requestUri, $file, $name, $mimeType, $filePath);
+        }
+    }
+    
+    function postMultiPartSegmentendly($requestUri, $file, $name, $mimeType, $filePath)
+    {
         $client = $this->getClient();
         $uri = $this->endpointUri . $requestUri;
+        
+        // init variables related to the multipart upload byte range calculation
+        $size = filesize($filePath);
+        $segmentEnd = 0;
+        $segmentNumber = 0;
+        $segmentStart = 0;
+        while ($segmentEnd < $size) {
+            $segmentStart = $segmentNumber * $this->uploadSegmentLength;
+            $segmentEnd = ($segmentNumber + 1) * $this->uploadSegmentLength;
+            if ($segmentEnd > $size) {
+                $segmentEnd = $size; // check if segmentEnd is greater than file size, and adjust it if so
+            }
+            $byteRange = ($segmentStart)-($segmentEnd - 1)/($size);
+            $content = file_get_contents($filePath, false, null, $segmentStart, $segmentEnd);
 
-        $result = $client->request('POST', $uri, [
-            'multipart' => [
-                [
-                    'name' => 'content',
-                    'contents' => $file,
-                ],
-                [
-                    'name' => 'name',
-                    'contents' => $name,
-                ],
-                [
+            echo("Debug \n");
+            echo("Segment Number: ". $segmentNumber ."\n");
+            echo("Segment start: ". $segmentStart ."\n");
+            echo("Segment end: ". $segmentEnd . "\n");
+            echo("Byte Range: ". $byteRange . "\n");
+            
+            $result = $client->request('POST', $uri, [
+                'headers' => ['content-range' => 'bytes ' . $byteRange],
+                'multipart' => [
+                    [
+                        'name' => 'content',
+                        'contents' => $content,
+                    ],
+                    [
+                        'name' => 'name',
+                        'contents' => $name,
+                    ],
+                    [
                     'name' => 'contentType',
                     'contents' => $mimeType,
                 ],
-            ]
-        ]);
-
+                ]
+            ]);
+            $segmentNumber += 1;
+        }
         return json_decode($result->getBody());
+            
     }
-
+        
     function put($requestUri, $request)
     {
 

@@ -201,7 +201,9 @@ class RestClient
                 $segmentEnd = $size; // check if segmentEnd is greater than file size, and adjust it if so
             }
             $content = fread($file, $segmentEnd - $segmentStart);
-            $contentRangeStr = 'bytes ' . $segmentStart . '-' . $segmentEnd . '/' . $size;
+            $segmentEndMinusOne = $segmentEnd-1;
+
+            $contentRangeStr = 'bytes ' . $segmentStart . '-' . $segmentEndMinusOne . '/' . $size;
 
             echo ("Debug \n");
             echo ("Segment Number: " . $segmentNumber . "\n");
@@ -213,9 +215,6 @@ class RestClient
                 $result = $client->request('POST', $uri, [
                     'headers' => [
                         'content-range' => $contentRangeStr
-                    ],
-                    'params' => [
-                        'ticket' => $ticket
                     ],
                     'multipart' => [
                         [
@@ -230,6 +229,10 @@ class RestClient
                             'name' => 'contentType',
                             'contents' => $mimeType,
                         ],
+                        [
+                            'name' => 'ticket',
+                            'contents' => $ticket,
+                        ]
                     ]
                 ]);
                 $segmentNumber += 1;

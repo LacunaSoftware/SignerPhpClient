@@ -63,7 +63,6 @@ class SignerClient
      */
     function createDocument($request)
     {
-        echo $request . "\n";
         $response = $this->getRestClient()->post("/api/documents", $request);
         $result = array();
         foreach ($response as $element) {
@@ -170,7 +169,7 @@ class SignerClient
     {
         $requestUri = "/api/uploads";
         $restClient = $this->getRestClient();
-        if(!empty($file)){
+        if(!empty($filePath)){
             $result = $restClient->postMultiPart($requestUri, $file, $name, $mimeType, $filePath);
         } else {
             $result = $restClient->postMultiPart($requestUri, $file, $name, $mimeType, null);

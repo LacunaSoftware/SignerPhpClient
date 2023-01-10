@@ -165,15 +165,11 @@ class SignerClient
      * @param string $mimeType
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function uploadFile($name, $file, $mimeType, $filePath = null)
+    function uploadFile($name, $file, $mimeType)
     {
         $requestUri = "/api/uploads";
         $restClient = $this->getRestClient();
-        if(!empty($filePath)){
-            $result = $restClient->postMultiPart($requestUri, $file, $name, $mimeType, $filePath);
-        } else {
-            $result = $restClient->postMultiPart($requestUri, $file, $name, $mimeType, null);
-        }
+        $result = $restClient->postMultiPart($requestUri, $file, $name, $mimeType);
         return $result;
     }
 

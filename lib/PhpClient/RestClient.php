@@ -143,15 +143,17 @@ class RestClient
         return json_decode($response->getBody(), true);
     }
 
+
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function postMultiPart($requestUri, $file, $name, $mimeType, $filePath = null)
+    function postMultiPart($requestUri, $file, $name, $mimeType)
     {
-        if (empty($filePath) || filesize($filePath) < $this->segmentedUploadThreshold) {
 
-            $client = $this->getClient();
-            $uri = $this->endpointUri . $requestUri;
+        $client = $this->getClient();
+        $uri = $this->endpointUri . $requestUri;
+        $filesize = fstat($file)["size"];
+        if ($filesize < $this->segmentedUploadThreshold) {
 
             $result = $client->request('POST', $uri, [
                 'multipart' => [
@@ -171,7 +173,7 @@ class RestClient
             ]);
             return json_decode($result->getBody());
         } else {
-            $result = $this->postMultiPartSegmentendly($requestUri, $file, $name, $mimeType, $filePath);
+            $result = $this->postMultiPartSegmentedly($requestUri, $file, $name, $mimeType, $filesize);
             return json_decode($result);
         }
     }
@@ -184,67 +186,83 @@ class RestClient
         return $ticket;
     }
 
-    function getFileStreamSegment($file, $segmentStart){
+    function getFileStreamSegment($file, $segmentStart)
+    {
         // advances file pointer inside file in order to get other chunks
         // returns the content as string;
-        if (is_resource($file) AND !feof($file)){
+        if (is_resource($file) and !feof($file)) {
             fseek($file, $segmentStart);
             return fread($file, $this->uploadSegmentLength);
         }
     }
 
-    function postMultiPartSegmentendly($requestUri, $file, $name, $mimeType, $filePath)
+    function progressBar($done, $total) {
+        $perc = floor(($done / $total) * 100);
+        $left = 100 - $perc;
+        $write = sprintf("\033[0G\033[2K[%'={$perc}s>%-{$left}s] - $perc%% - $done/$total", "", "");
+        fwrite(STDERR, $write);
+    }
+
+    function postMultiPartSegmentedly($requestUri, $file, $name, $mimeType, $fileSize)
     {
         $client = $this->getClient();
         $uri = $this->endpointUri . $requestUri;
         // get a ticket to begin the multipart upload in chunks
         $ticket = $this->getMultipartUploadTicket($requestUri);
 
-        // init variables related to the multipart upload byte range calculation
-        $size = filesize($filePath);
         $segmentEnd = 0;
         $segmentNumber = 0;
         $segmentStart = 0;
-        while ($segmentEnd < $size) {
+        while ($segmentEnd < $fileSize) {
             $segmentStart = $segmentNumber * $this->uploadSegmentLength;
             $segmentEnd = ($segmentNumber + 1) * $this->uploadSegmentLength;
-            if ($segmentEnd > $size) {
-                $segmentEnd = $size; // check if segmentEnd is greater than file size, and adjust it if so
+            if ($segmentEnd > $fileSize) {
+                $segmentEnd = $fileSize; // check if segmentEnd is greater than file size, and adjust it if so
             }
             $segmentEndMinusOne = $segmentEnd - 1;
-            $contentRangeStr = 'bytes ' . $segmentStart . '-' . $segmentEndMinusOne . '/' . $size;
-            $uriWithTicket = $uri . "?ticket=". $ticket;
+            $contentRangeStr = 'bytes ' . $segmentStart . '-' . $segmentEndMinusOne . '/' . $fileSize;
+            $uriWithTicket = $requestUri . "?ticket=" . $ticket;
+
             $data = $this->getFileStreamSegment($file, $segmentStart);
-            $auxFile = "resources\auxFile.pdf";
-            // Move to auxiliary file
-            file_put_contents($auxFile, $data);
-            // open as resource type
-            $content = fopen($auxFile, "r");
-            try {
-                $result = $client->request('POST', $uriWithTicket, [
-                    'headers'  => [
-                        'content-range' => $contentRangeStr
-                    ],
-                    'multipart' => [
-                        [
-                            'name' => 'content',
-                            'contents' => $content,
+            $auxFile = tmpfile();
+            if (false !== $auxFile) {
+                fputs($auxFile, $data);
+                try {
+                    $result = $client->request('POST', $uriWithTicket, [
+                        'headers'  => [
+                            'content-range' => $contentRangeStr
                         ],
-                        [
-                            'name' => 'name',
-                            'contents' => $name,
-                        ],
-                        [
-                            'name' => 'contentType',
-                            'contents' => $mimeType,
-                        ],
-                    ]]);
-                $segmentNumber += 1;
-            } catch (Exception $ex) {
-                echo $ex->getMessage();
+                        'multipart' => [
+                            [
+                                'name' => 'content',
+                                'contents' => $auxFile,
+                            ],
+                            [
+                                'name' => 'name',
+                                'contents' => $name,
+                            ],
+                            [
+                                'name' => 'contentType',
+                                'contents' => $mimeType,
+                            ],
+                        ]
+                    ]);
+                    $this->progressBar($segmentEnd, $fileSize);
+                    if($segmentEnd == $fileSize){
+                        echo "\n Upload completed \n";
+                    }
+                    $segmentNumber += 1;
+                } catch (Exception $ex) {
+                    echo $ex->getMessage();
+                    throw $ex;                   
+                    return;
+                }
+            } else {
+                throw new Exception("Could not create temporary file, exiting code", 1);
+                return;     
             }
         }
-        fclose($content);
+        fclose($auxFile);
         return $result->getBody();
     }
 

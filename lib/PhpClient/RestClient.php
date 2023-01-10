@@ -214,12 +214,14 @@ class RestClient
             $segmentEndMinusOne = $segmentEnd - 1;
             $contentRangeStr = 'bytes ' . $segmentStart . '-' . $segmentEndMinusOne . '/' . $size;
             $uriWithTicket = $uri . "?ticket=". $ticket;
+            
             $data = $this->getFileStreamSegment($file, $segmentStart);
             $auxFile = "resources\auxFile.pdf";
             // Move to auxiliary file
             file_put_contents($auxFile, $data);
             // open as resource type
             $content = fopen($auxFile, "r");
+            
             try {
                 $result = $client->request('POST', $uriWithTicket, [
                     'headers'  => [

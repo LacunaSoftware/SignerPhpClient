@@ -21,8 +21,6 @@ class RestClient
     private $apiKey;
     private $caInfoPath;
     private $usePhpCAInfo;
-    private $segmentedUploadThreshold;
-    private $uploadSegmentLength;
 
 
     public function __construct($endpointUri, $apiKey, $usePhpCAInfo = false, $caInfoPath = null)
@@ -184,20 +182,11 @@ class RestClient
         return $ticket;
     }
 
-    function getFileStreamSegment($file, $segmentStart){
-        // advances file pointer inside file in order to get other chunks
-        // returns the content as string;
-        if (is_resource($file) AND !feof($file)){
-            fseek($file, $segmentStart);
-            return fread($file, $this->uploadSegmentLength);
-        }
-    }
-
     function postMultiPartSegmentendly($requestUri, $file, $name, $mimeType, $filePath)
     {
         $client = $this->getClient();
         $uri = $this->endpointUri . $requestUri;
-        // get a ticket to begin the multipart upload in chunks
+
         $ticket = $this->getMultipartUploadTicket($requestUri);
 
         // init variables related to the multipart upload byte range calculation
@@ -211,20 +200,20 @@ class RestClient
             if ($segmentEnd > $size) {
                 $segmentEnd = $size; // check if segmentEnd is greater than file size, and adjust it if so
             }
-            $segmentEndMinusOne = $segmentEnd - 1;
+            $content = fread($file, $segmentEnd - $segmentStart);
+            $segmentEndMinusOne = $segmentEnd-1;
+
             $contentRangeStr = 'bytes ' . $segmentStart . '-' . $segmentEndMinusOne . '/' . $size;
-            $uriWithTicket = $uri . "?ticket=". $ticket;
-            
-            $data = $this->getFileStreamSegment($file, $segmentStart);
-            $auxFile = "resources\auxFile.pdf";
-            // Move to auxiliary file
-            file_put_contents($auxFile, $data);
-            // open as resource type
-            $content = fopen($auxFile, "r");
-            
+
+            echo ("Debug \n");
+            echo ("Segment Number: " . $segmentNumber . "\n");
+            echo ("Segment start: " . $segmentStart . "\n");
+            echo ("Segment end: " . $segmentEnd . "\n");
+            echo ("Content-Range: " . $contentRangeStr . "\n");
+
             try {
-                $result = $client->request('POST', $uriWithTicket, [
-                    'headers'  => [
+                $result = $client->request('POST', $uri, [
+                    'headers' => [
                         'content-range' => $contentRangeStr
                     ],
                     'multipart' => [
@@ -240,13 +229,17 @@ class RestClient
                             'name' => 'contentType',
                             'contents' => $mimeType,
                         ],
-                    ]]);
+                        [
+                            'name' => 'ticket',
+                            'contents' => $ticket,
+                        ]
+                    ]
+                ]);
                 $segmentNumber += 1;
             } catch (Exception $ex) {
                 echo $ex->getMessage();
             }
         }
-        fclose($content);
         return $result->getBody();
     }
 

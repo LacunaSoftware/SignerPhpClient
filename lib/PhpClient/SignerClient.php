@@ -63,7 +63,6 @@ class SignerClient
      */
     function createDocument($request)
     {
-        echo $request . "\n";
         $response = $this->getRestClient()->post("/api/documents", $request);
         $result = array();
         foreach ($response as $element) {
@@ -166,15 +165,13 @@ class SignerClient
      * @param string $mimeType
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function uploadFile($name, $file, $mimeType, $filePath = null)
+    function uploadFile($name, $file, $mimeType, $filepath)
     {
         $requestUri = "/api/uploads";
         $restClient = $this->getRestClient();
-        if(!empty($file)){
-            $result = $restClient->postMultiPart($requestUri, $file, $name, $mimeType, $filePath);
-        } else {
-            $result = $restClient->postMultiPart($requestUri, $file, $name, $mimeType, null);
-        }
+
+        $result = $restClient->postMultiPart($requestUri, $file, $name, $mimeType, $filepath);
+
         return $result;
     }
 
@@ -183,7 +180,7 @@ class SignerClient
         $requestUri = "/api/uploads/bytes";
         $restClient = $this->getRestClient();
 
-        $result = $restClient->post($requestUri, $fileBase64Request);
+        $result = $restClient->post($requestUri, base64_encode($fileBase64Request));
 
         return $result;
     }

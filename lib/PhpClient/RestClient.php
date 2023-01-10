@@ -141,13 +141,14 @@ class RestClient
         return json_decode($response->getBody(), true);
     }
 
+
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function postMultiPart($requestUri, $file, $name, $mimeType, $filePath = null)
+    function postMultiPart($requestUri, $file, $name, $mimeType, $filePath)
     {
-        if (empty($filePath) || filesize($filePath) < $this->segmentedUploadThreshold) {
-
+        if(filesize($filePath) < $this->segmentedUploadThreshold){
+            echo("smaller than the threshold!");
             $client = $this->getClient();
             $uri = $this->endpointUri . $requestUri;
 
@@ -165,30 +166,21 @@ class RestClient
                         'name' => 'contentType',
                         'contents' => $mimeType,
                     ],
-                ]
-            ]);
+                    ]
+                ]);
+                
             return json_decode($result->getBody());
         } else {
-            $result = $this->postMultiPartSegmentendly($requestUri, $file, $name, $mimeType, $filePath);
-            return json_decode($result);
+            echo("bigger than the threshold!");
+            return $this->postMultiPartSegmentendly($requestUri, $file, $name, $mimeType, $filePath);
         }
     }
-
-    function getMultipartUploadTicket($requestUri)
-    {
-        // Request ticket
-        $startSegmentedRequestUri = $requestUri . '/segmented-upload-ticket/';
-        $ticket = $this->post($startSegmentedRequestUri, null);
-        return $ticket;
-    }
-
+    
     function postMultiPartSegmentendly($requestUri, $file, $name, $mimeType, $filePath)
     {
         $client = $this->getClient();
         $uri = $this->endpointUri . $requestUri;
-
-        $ticket = $this->getMultipartUploadTicket($requestUri);
-
+        
         // init variables related to the multipart upload byte range calculation
         $size = filesize($filePath);
         $segmentEnd = 0;
@@ -200,46 +192,38 @@ class RestClient
             if ($segmentEnd > $size) {
                 $segmentEnd = $size; // check if segmentEnd is greater than file size, and adjust it if so
             }
-            $content = fread($file, $segmentEnd - $segmentStart);
-            $contentRangeStr = 'bytes ' . $segmentStart . '-' . $segmentEnd . '/' . $size;
+            $byteRange = ($segmentStart)-($segmentEnd - 1)/($size);
+            $content = file_get_contents($filePath, false, null, $segmentStart, $segmentEnd);
 
-            echo ("Debug \n");
-            echo ("Segment Number: " . $segmentNumber . "\n");
-            echo ("Segment start: " . $segmentStart . "\n");
-            echo ("Segment end: " . $segmentEnd . "\n");
-            echo ("Content-Range: " . $contentRangeStr . "\n");
-
-            try {
-                $result = $client->request('POST', $uri, [
-                    'headers' => [
-                        'content-range' => $contentRangeStr
+            echo("Debug \n");
+            echo("Segment Number: ". $segmentNumber ."\n");
+            echo("Segment start: ". $segmentStart ."\n");
+            echo("Segment end: ". $segmentEnd . "\n");
+            echo("Byte Range: ". $byteRange . "\n");
+            
+            $result = $client->request('POST', $uri, [
+                'headers' => ['content-range' => 'bytes ' . $byteRange],
+                'multipart' => [
+                    [
+                        'name' => 'content',
+                        'contents' => $content,
                     ],
-                    'params' => [
-                        'ticket' => $ticket
+                    [
+                        'name' => 'name',
+                        'contents' => $name,
                     ],
-                    'multipart' => [
-                        [
-                            'name' => 'content',
-                            'contents' => $content,
-                        ],
-                        [
-                            'name' => 'name',
-                            'contents' => $name,
-                        ],
-                        [
-                            'name' => 'contentType',
-                            'contents' => $mimeType,
-                        ],
-                    ]
-                ]);
-                $segmentNumber += 1;
-            } catch (Exception $ex) {
-                echo $ex->getMessage();
-            }
+                    [
+                    'name' => 'contentType',
+                    'contents' => $mimeType,
+                ],
+                ]
+            ]);
+            $segmentNumber += 1;
         }
-        return $result->getBody();
+        return json_decode($result->getBody());
+            
     }
-
+        
     function put($requestUri, $request)
     {
 
@@ -320,4 +304,5 @@ class RestClient
         }
         return $arr;
     }
+
 }

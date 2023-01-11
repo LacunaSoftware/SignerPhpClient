@@ -178,6 +178,7 @@ class SignerClient
         $requestUri = "/api/uploads/bytes";
         $restClient = $this->getRestClient();
         $result = $restClient->post($requestUri, $fileBase64Request);
+
         return $result;
     }
 

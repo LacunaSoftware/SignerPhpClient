@@ -5,6 +5,7 @@ namespace Lacuna\Signer\PhpClient;
 
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Psr7;
 use InvalidArgumentException;
@@ -68,7 +69,7 @@ class RestClient
         return new Client([
             'base_uri' => $this->endpointUri,
             'headers' => $headers,
-            'http_errors' => false,
+            'http_errors' => true,
             'verify' => $verify
         ]);
     }
@@ -149,7 +150,6 @@ class RestClient
      */
     function postMultiPart($requestUri, $file, $name, $mimeType)
     {
-
         $client = $this->getClient();
         $uri = $this->endpointUri . $requestUri;
         $filesize = fstat($file)["size"];
@@ -180,7 +180,6 @@ class RestClient
 
     function getMultipartUploadTicket($requestUri)
     {
-        // Request ticket
         $startSegmentedRequestUri = $requestUri . '/segmented-upload-ticket/';
         $ticket = $this->post($startSegmentedRequestUri, null);
         return $ticket;
@@ -188,26 +187,16 @@ class RestClient
 
     function getFileStreamSegment($file, $segmentStart)
     {
-        // advances file pointer inside file in order to get other chunks
-        // returns the content as string;
         if (is_resource($file) and !feof($file)) {
             fseek($file, $segmentStart);
             return fread($file, $this->uploadSegmentLength);
         }
     }
 
-    function progressBar($done, $total) {
-        $perc = floor(($done / $total) * 100);
-        $left = 100 - $perc;
-        $write = sprintf("\033[0G\033[2K[%'={$perc}s>%-{$left}s] - $perc%% - $done/$total", "", "");
-        fwrite(STDERR, $write);
-    }
-
     function postMultiPartSegmentedly($requestUri, $file, $name, $mimeType, $fileSize)
     {
         $client = $this->getClient();
         $uri = $this->endpointUri . $requestUri;
-        // get a ticket to begin the multipart upload in chunks
         $ticket = $this->getMultipartUploadTicket($requestUri);
 
         $segmentEnd = 0;
@@ -217,7 +206,7 @@ class RestClient
             $segmentStart = $segmentNumber * $this->uploadSegmentLength;
             $segmentEnd = ($segmentNumber + 1) * $this->uploadSegmentLength;
             if ($segmentEnd > $fileSize) {
-                $segmentEnd = $fileSize; // check if segmentEnd is greater than file size, and adjust it if so
+                $segmentEnd = $fileSize;
             }
             $segmentEndMinusOne = $segmentEnd - 1;
             $contentRangeStr = 'bytes ' . $segmentStart . '-' . $segmentEndMinusOne . '/' . $fileSize;
@@ -225,10 +214,10 @@ class RestClient
 
             $data = $this->getFileStreamSegment($file, $segmentStart);
             $auxFile = tmpfile();
-            if (false !== $auxFile) {
+            if ($auxFile !== false) {
                 fputs($auxFile, $data);
                 try {
-                    $result = $client->request('POST', $uriWithTicket, [
+                    $result = $client->request('POST', $uriWithTicket , [
                         'headers'  => [
                             'content-range' => $contentRangeStr
                         ],
@@ -247,19 +236,13 @@ class RestClient
                             ],
                         ]
                     ]);
-                    $this->progressBar($segmentEnd, $fileSize);
-                    if($segmentEnd == $fileSize){
-                        echo "\n Upload completed \n";
-                    }
                     $segmentNumber += 1;
-                } catch (Exception $ex) {
-                    echo $ex->getMessage();
-                    throw $ex;                   
-                    return;
+                } catch (GuzzleException $ex) {
+                    fclose($auxFile);
+                    throw $ex;
                 }
             } else {
                 throw new Exception("Could not create temporary file, exiting code", 1);
-                return;     
             }
         }
         fclose($auxFile);

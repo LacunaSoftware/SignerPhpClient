@@ -5,6 +5,7 @@ namespace Lacuna\Signer\PhpClient;
 
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Psr7;
 use InvalidArgumentException;
@@ -21,12 +22,16 @@ class RestClient
     private $apiKey;
     private $caInfoPath;
     private $usePhpCAInfo;
+    private $segmentedUploadThreshold;
+    private $uploadSegmentLength;
 
 
     public function __construct($endpointUri, $apiKey, $usePhpCAInfo = false, $caInfoPath = null)
     {
         $this->endpointUri = $this->handleEndPoint($endpointUri);
         $this->apiKey = $apiKey;
+        $this->segmentedUploadThreshold = 10485760;
+        $this->uploadSegmentLength = 2097152;
 
         $this->usePhpCAInfo = $usePhpCAInfo;
 
@@ -64,7 +69,7 @@ class RestClient
         return new Client([
             'base_uri' => $this->endpointUri,
             'headers' => $headers,
-            'http_errors' => false,
+            'http_errors' => true,
             'verify' => $verify
         ]);
     }
@@ -145,28 +150,103 @@ class RestClient
      */
     function postMultiPart($requestUri, $file, $name, $mimeType)
     {
-
         $client = $this->getClient();
         $uri = $this->endpointUri . $requestUri;
+        $filesize = fstat($file)["size"];
+        if ($filesize < $this->segmentedUploadThreshold) {
 
-        $result = $client->request('POST', $uri, [
-            'multipart' => [
-                [
-                    'name' => 'content',
-                    'contents' => $file,
-                ],
-                [
-                    'name' => 'name',
-                    'contents' => $name,
-                ],
-                [
-                    'name' => 'contentType',
-                    'contents' => $mimeType,
-                ],
-            ]
-        ]);
+            $result = $client->request('POST', $uri, [
+                'multipart' => [
+                    [
+                        'name' => 'content',
+                        'contents' => $file,
+                    ],
+                    [
+                        'name' => 'name',
+                        'contents' => $name,
+                    ],
+                    [
+                        'name' => 'contentType',
+                        'contents' => $mimeType,
+                    ],
+                ]
+            ]);
+            return json_decode($result->getBody());
+        } else {
+            $result = $this->postMultiPartSegmentedly($requestUri, $file, $name, $mimeType, $filesize);
+            return json_decode($result);
+        }
+    }
 
-        return json_decode($result->getBody());
+    function getMultipartUploadTicket($requestUri)
+    {
+        $startSegmentedRequestUri = $requestUri . '/segmented-upload-ticket/';
+        $ticket = $this->post($startSegmentedRequestUri, null);
+        return $ticket;
+    }
+
+    function getFileStreamSegment($file, $segmentStart)
+    {
+        if (is_resource($file) and !feof($file)) {
+            fseek($file, $segmentStart);
+            return fread($file, $this->uploadSegmentLength);
+        }
+    }
+
+    function postMultiPartSegmentedly($requestUri, $file, $name, $mimeType, $fileSize)
+    {
+        $client = $this->getClient();
+        $uri = $this->endpointUri . $requestUri;
+        $ticket = $this->getMultipartUploadTicket($requestUri);
+
+        $segmentEnd = 0;
+        $segmentNumber = 0;
+        $segmentStart = 0;
+        while ($segmentEnd < $fileSize) {
+            $segmentStart = $segmentNumber * $this->uploadSegmentLength;
+            $segmentEnd = ($segmentNumber + 1) * $this->uploadSegmentLength;
+            if ($segmentEnd > $fileSize) {
+                $segmentEnd = $fileSize;
+            }
+            $segmentEndMinusOne = $segmentEnd - 1;
+            $contentRangeStr = 'bytes ' . $segmentStart . '-' . $segmentEndMinusOne . '/' . $fileSize;
+            $uriWithTicket = $requestUri . "?ticket=" . $ticket;
+
+            $data = $this->getFileStreamSegment($file, $segmentStart);
+            $auxFile = tmpfile();
+            if ($auxFile !== false) {
+                fputs($auxFile, $data);
+                try {
+                    $result = $client->request('POST', $uriWithTicket , [
+                        'headers'  => [
+                            'content-range' => $contentRangeStr
+                        ],
+                        'multipart' => [
+                            [
+                                'name' => 'content',
+                                'contents' => $auxFile,
+                            ],
+                            [
+                                'name' => 'name',
+                                'contents' => $name,
+                            ],
+                            [
+                                'name' => 'contentType',
+                                'contents' => $mimeType,
+                            ],
+                        ]
+                    ]);
+                    $segmentNumber += 1;
+                } catch (GuzzleException $ex) {
+                    fclose($auxFile);
+                    throw $ex;
+                }
+            } else {
+                throw new Exception("Could not create temporary file, exiting code", 1);
+            }
+        }
+        fclose($auxFile);
+        return $result->getBody();
     }
 
     function put($requestUri, $request)
@@ -249,5 +329,4 @@ class RestClient
         }
         return $arr;
     }
-
 }

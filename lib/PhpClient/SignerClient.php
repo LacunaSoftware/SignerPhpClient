@@ -169,8 +169,15 @@ class SignerClient
     {
         $requestUri = "/api/uploads";
         $restClient = $this->getRestClient();
-
         $result = $restClient->postMultiPart($requestUri, $file, $name, $mimeType);
+        return $result;
+    }
+
+    function uploadFileBytes($fileBase64Request)
+    {
+        $requestUri = "/api/uploads/bytes";
+        $restClient = $this->getRestClient();
+        $result = $restClient->post($requestUri, $fileBase64Request);
 
         return $result;
     }

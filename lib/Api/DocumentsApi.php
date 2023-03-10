@@ -10,14 +10,14 @@
  */
 
 /**
- * Dropsigner (HML)
+ * Dropsigner
  *
- * <!--------------------------------------------------------------------------------------------------------------------->    <h2>Authentication</h2>    <p>   In order to call this APIs, you will need an <strong>API key</strong>. Set the API key in the header <span class=\"code\">X-Api-Key</span>:  </p>    <pre>X-Api-Key: your-app|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre>    <!--------------------------------------------------------------------------------------------------------------------->  <br />    <h2>HTTP Codes</h2>    <p>   The APIs will return the following HTTP codes:  </p>    <table>   <thead>    <tr>     <th>Code</th>     <th>Description</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">200 (OK)</strong></td>     <td>Request processed successfully. The response is different for each API, please refer to the operation's documentation</td>    </tr>    <tr>     <td><strong class=\"model-title\">400 (Bad Request)</strong></td>     <td>Syntax error. For instance, when a required field was not provided</td>    </tr>    <tr>     <td><strong class=\"model-title\">401 (Unauthorized)</strong></td>     <td>API key not provided or invalid</td>    </tr>    <tr>     <td><strong class=\"model-title\">403 (Forbidden)</strong></td>     <td>API key is valid, but the application has insufficient permissions to complete the requested operation</td>    </tr>    <tr>     <td><strong class=\"model-title\">422 (Unprocessable Entity)</strong></td>     <td>API error. The response is as defined in <a href=\"#model-ErrorModel\">ErrorModel</a></td>    </tr>   </tbody>  </table>    <br />    <h3>Error Codes</h3>    <p>Some of the error codes returned in a 422 response are provided bellow*:</p>    <ul>   <li>CertificateNotFound</li>   <li>DocumentNotFound</li>   <li>FolderNotFound</li>   <li>CpfMismatch</li>   <li>CpfNotExpected</li>   <li>InvalidFlowAction</li>   <li>DocumentInvalidKey</li>  </ul>    <p style=\"font-size: 0.9em\">   *The codes shown above are the main error codes. Nonetheless, this list is not comprehensive. New codes may be added anytime without previous warning.  </p>    <!--------------------------------------------------------------------------------------------------------------------->    <br />    <h2>Webhooks</h2>    <p>   It is recomended to subscribe to Webhook events <strong>instead</strong> of polling APIs. To do so, enable webhooks and register an URL that will receive a POST request   whenever one of the events bellow occur.  </p>  <p>   All requests have the format described in <a href=\"#model-Webhooks.WebhookModel\">Webhooks.WebhookModel</a>.   The data field varies according to the webhook event type:  </p>      <table>   <thead>    <tr>     <th>Event type</th>     <th>Description</th>     <th>Payload</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">DocumentSigned</strong></td>     <td>Triggered when a document is signed.</td>     <td><a href=\"#model-Webhooks.DocumentSignedModel\">Webhooks.DocumentSignedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentApproved</strong></td>     <td>Triggered when a document is approved.</td>     <td><a href=\"#model-Webhooks.DocumentApprovedModel\">Webhooks.DocumentApprovedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentRefused</strong></td>     <td>Triggered when a document is refused.</td>     <td><a href=\"#model-Webhooks.DocumentRefusedModel\">Webhooks.DocumentRefusedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentConcluded</strong></td>     <td>Triggered when the flow of a document is concluded.</td>     <td><a href=\"#model-Webhooks.DocumentConcludedModel\">Webhooks.DocumentConcludedModel</a></td>    </tr>   </tbody>  </table>    <p>   To register your application URL and enable Webhooks, access the integrations section in your <a href=\"/private/organizations\" target=\"_blank\">organization's details page</a>.  </p>
+ * <!--------------------------------------------------------------------------------------------------------------------->    <h2>Authentication</h2>    <p>   In order to call this APIs, you will need an <strong>API key</strong>. Set the API key in the header <span class=\"code\">X-Api-Key</span>:  </p>    <pre>X-Api-Key: your-app|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre>    <!--------------------------------------------------------------------------------------------------------------------->  <br />    <h2>HTTP Codes</h2>    <p>   The APIs will return the following HTTP codes:  </p>    <table>   <thead>    <tr>     <th>Code</th>     <th>Description</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">200 (OK)</strong></td>     <td>Request processed successfully. The response is different for each API, please refer to the operation's documentation</td>    </tr>    <tr>     <td><strong class=\"model-title\">400 (Bad Request)</strong></td>     <td>Syntax error. For instance, when a required field was not provided</td>    </tr>    <tr>     <td><strong class=\"model-title\">401 (Unauthorized)</strong></td>     <td>API key not provided or invalid</td>    </tr>    <tr>     <td><strong class=\"model-title\">403 (Forbidden)</strong></td>     <td>API key is valid, but the application has insufficient permissions to complete the requested operation</td>    </tr>    <tr>     <td><strong class=\"model-title\">422 (Unprocessable Entity)</strong></td>     <td>API error. The response is as defined in <a href=\"#model-ErrorModel\">ErrorModel</a></td>    </tr>   </tbody>  </table>    <br />    <h3>Error Codes</h3>    <p>Some of the error codes returned in a 422 response are provided bellow*:</p>    <ul>   <li>CertificateNotFound</li>   <li>DocumentNotFound</li>   <li>FolderNotFound</li>   <li>CpfMismatch</li>   <li>CpfNotExpected</li>   <li>InvalidFlowAction</li>   <li>DocumentInvalidKey</li>  </ul>    <p style=\"font-size: 0.9em\">   *The codes shown above are the main error codes. Nonetheless, this list is not comprehensive. New codes may be added anytime without previous warning.  </p>    <!--------------------------------------------------------------------------------------------------------------------->    <br />    <h2>Webhooks</h2>    <p>   It is recomended to subscribe to Webhook events <strong>instead</strong> of polling APIs. To do so, enable webhooks and register an URL that will receive a POST request   whenever one of the events bellow occur.  </p>  <p>   All requests have the format described in <a href=\"#model-Webhooks.WebhookModel\">Webhooks.WebhookModel</a>.   The data field varies according to the webhook event type:  </p>      <table>   <thead>    <tr>     <th>Event type</th>     <th>Description</th>     <th>Payload</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">DocumentSigned</strong></td>     <td>Triggered when a document is signed.</td>     <td><a href=\"#model-Webhooks.DocumentSignedModel\">Webhooks.DocumentSignedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentApproved</strong></td>     <td>Triggered when a document is approved.</td>     <td><a href=\"#model-Webhooks.DocumentApprovedModel\">Webhooks.DocumentApprovedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentRefused</strong></td>     <td>Triggered when a document is refused.</td>     <td><a href=\"#model-Webhooks.DocumentRefusedModel\">Webhooks.DocumentRefusedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentConcluded</strong></td>     <td>Triggered when the flow of a document is concluded.</td>     <td><a href=\"#model-Webhooks.DocumentConcludedModel\">Webhooks.DocumentConcludedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentCanceled</strong></td>     <td>Triggered when the document is canceled.</td>     <td><a href=\"#model-Webhooks.DocumentCanceledModel\">Webhooks.DocumentCanceledModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentsCreated (v1.50.0)</strong></td>     <td>Triggered when one or more documents are created.</td>     <td><a href=\"#model-Webhooks.DocumentsCreatedModel\">Webhooks.DocumentsCreatedModel</a></td>    </tr>   </tbody>  </table>    <p>   To register your application URL and enable Webhooks, access the integrations section in your <a href=\"/private/organizations\" target=\"_blank\">organization's details page</a>.  </p>
  *
- * OpenAPI spec version: 1.28.0
+ * OpenAPI spec version: 1.55.0
  * 
  * Generated by: https://github.com/swagger-api/swagger-codegen.git
- * Swagger Codegen version: 3.0.20
+ * Swagger Codegen version: 3.0.41
  */
 /**
  * NOTE: This class is auto generated by the swagger code generator program.
@@ -355,11 +355,17 @@ class DocumentsApi
      *
      * Retrieves the documents of the organization paginating the response.
      *
-     * @param  bool $isConcluded isConcluded (optional)
+     * @param  bool $isConcluded (DEPRECATED) Please use \&quot;Status\&quot; parameter instead. Set to true to list concluded documents, false to list pending documents. (optional)
+     * @param  \Lacuna\Signer\Model\DocumentFilterStatus $status Filters by document status. Will override the \&quot;IsConcluded\&quot; property. (optional)
      * @param  string $folderId folderId (optional)
      * @param  \Lacuna\Signer\Model\FolderType $folderType folderType (optional)
      * @param  \Lacuna\Signer\Model\DocumentTypes $documentType documentType (optional)
      * @param  bool $filterByDocumentType True if the documents should be filtered by type, use documentType to specify the document type.  If you want to filter only documents without a type, set this parameter to true and the documentType to null. (optional)
+     * @param  bool $filterByPendingSignature True if documents should be filtered only for those that have FlowAction of the type Signer or SignRule (optional)
+     * @param  \Lacuna\Signer\Model\DocumentQueryTypes $queryType queryType (optional)
+     * @param  string $participantQ Query to filter by participant (optional)
+     * @param  \Lacuna\Signer\Model\ParticipantQueryTypes $participantQueryType participantQueryType (optional)
+     * @param  string $tags Label/value pairs are separated by \&quot;|\&quot; (optional) and Tags separated by \&quot;,\&quot;. Only the first 10 pairs will be considered.&lt;br /&gt;To search by tag value only, do not use the \&quot;|\&quot;. (optional)
      * @param  string $q Query to filter items. (optional)
      * @param  int $limit Number of items to return. (optional)
      * @param  int $offset The offset of the searched page (starting with 0). (optional)
@@ -369,9 +375,9 @@ class DocumentsApi
      * @throws \InvalidArgumentException
      * @return \Lacuna\Signer\Model\PaginatedSearchResponseDocumentsDocumentListModel
      */
-    public function apiDocumentsGet($isConcluded = null, $folderId = null, $folderType = null, $documentType = null, $filterByDocumentType = null, $q = null, $limit = null, $offset = null, $order = null)
+    public function apiDocumentsGet($isConcluded = null, $status = null, $folderId = null, $folderType = null, $documentType = null, $filterByDocumentType = null, $filterByPendingSignature = null, $queryType = null, $participantQ = null, $participantQueryType = null, $tags = null, $q = null, $limit = null, $offset = null, $order = null)
     {
-        list($response) = $this->apiDocumentsGetWithHttpInfo($isConcluded, $folderId, $folderType, $documentType, $filterByDocumentType, $q, $limit, $offset, $order);
+        list($response) = $this->apiDocumentsGetWithHttpInfo($isConcluded, $status, $folderId, $folderType, $documentType, $filterByDocumentType, $filterByPendingSignature, $queryType, $participantQ, $participantQueryType, $tags, $q, $limit, $offset, $order);
         return $response;
     }
 
@@ -380,11 +386,17 @@ class DocumentsApi
      *
      * Retrieves the documents of the organization paginating the response.
      *
-     * @param  bool $isConcluded (optional)
+     * @param  bool $isConcluded (DEPRECATED) Please use \&quot;Status\&quot; parameter instead. Set to true to list concluded documents, false to list pending documents. (optional)
+     * @param  \Lacuna\Signer\Model\DocumentFilterStatus $status Filters by document status. Will override the \&quot;IsConcluded\&quot; property. (optional)
      * @param  string $folderId (optional)
      * @param  \Lacuna\Signer\Model\FolderType $folderType (optional)
      * @param  \Lacuna\Signer\Model\DocumentTypes $documentType (optional)
      * @param  bool $filterByDocumentType True if the documents should be filtered by type, use documentType to specify the document type.  If you want to filter only documents without a type, set this parameter to true and the documentType to null. (optional)
+     * @param  bool $filterByPendingSignature True if documents should be filtered only for those that have FlowAction of the type Signer or SignRule (optional)
+     * @param  \Lacuna\Signer\Model\DocumentQueryTypes $queryType (optional)
+     * @param  string $participantQ Query to filter by participant (optional)
+     * @param  \Lacuna\Signer\Model\ParticipantQueryTypes $participantQueryType (optional)
+     * @param  string $tags Label/value pairs are separated by \&quot;|\&quot; (optional) and Tags separated by \&quot;,\&quot;. Only the first 10 pairs will be considered.&lt;br /&gt;To search by tag value only, do not use the \&quot;|\&quot;. (optional)
      * @param  string $q Query to filter items. (optional)
      * @param  int $limit Number of items to return. (optional)
      * @param  int $offset The offset of the searched page (starting with 0). (optional)
@@ -394,10 +406,10 @@ class DocumentsApi
      * @throws \InvalidArgumentException
      * @return array of \Lacuna\Signer\Model\PaginatedSearchResponseDocumentsDocumentListModel, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiDocumentsGetWithHttpInfo($isConcluded = null, $folderId = null, $folderType = null, $documentType = null, $filterByDocumentType = null, $q = null, $limit = null, $offset = null, $order = null)
+    public function apiDocumentsGetWithHttpInfo($isConcluded = null, $status = null, $folderId = null, $folderType = null, $documentType = null, $filterByDocumentType = null, $filterByPendingSignature = null, $queryType = null, $participantQ = null, $participantQueryType = null, $tags = null, $q = null, $limit = null, $offset = null, $order = null)
     {
         $returnType = '\Lacuna\Signer\Model\PaginatedSearchResponseDocumentsDocumentListModel';
-        $request = $this->apiDocumentsGetRequest($isConcluded, $folderId, $folderType, $documentType, $filterByDocumentType, $q, $limit, $offset, $order);
+        $request = $this->apiDocumentsGetRequest($isConcluded, $status, $folderId, $folderType, $documentType, $filterByDocumentType, $filterByPendingSignature, $queryType, $participantQ, $participantQueryType, $tags, $q, $limit, $offset, $order);
 
         try {
             $options = $this->createHttpClientOption();
@@ -471,11 +483,17 @@ class DocumentsApi
      *
      * Retrieves the documents of the organization paginating the response.
      *
-     * @param  bool $isConcluded (optional)
+     * @param  bool $isConcluded (DEPRECATED) Please use \&quot;Status\&quot; parameter instead. Set to true to list concluded documents, false to list pending documents. (optional)
+     * @param  \Lacuna\Signer\Model\DocumentFilterStatus $status Filters by document status. Will override the \&quot;IsConcluded\&quot; property. (optional)
      * @param  string $folderId (optional)
      * @param  \Lacuna\Signer\Model\FolderType $folderType (optional)
      * @param  \Lacuna\Signer\Model\DocumentTypes $documentType (optional)
      * @param  bool $filterByDocumentType True if the documents should be filtered by type, use documentType to specify the document type.  If you want to filter only documents without a type, set this parameter to true and the documentType to null. (optional)
+     * @param  bool $filterByPendingSignature True if documents should be filtered only for those that have FlowAction of the type Signer or SignRule (optional)
+     * @param  \Lacuna\Signer\Model\DocumentQueryTypes $queryType (optional)
+     * @param  string $participantQ Query to filter by participant (optional)
+     * @param  \Lacuna\Signer\Model\ParticipantQueryTypes $participantQueryType (optional)
+     * @param  string $tags Label/value pairs are separated by \&quot;|\&quot; (optional) and Tags separated by \&quot;,\&quot;. Only the first 10 pairs will be considered.&lt;br /&gt;To search by tag value only, do not use the \&quot;|\&quot;. (optional)
      * @param  string $q Query to filter items. (optional)
      * @param  int $limit Number of items to return. (optional)
      * @param  int $offset The offset of the searched page (starting with 0). (optional)
@@ -484,9 +502,9 @@ class DocumentsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function apiDocumentsGetAsync($isConcluded = null, $folderId = null, $folderType = null, $documentType = null, $filterByDocumentType = null, $q = null, $limit = null, $offset = null, $order = null)
+    public function apiDocumentsGetAsync($isConcluded = null, $status = null, $folderId = null, $folderType = null, $documentType = null, $filterByDocumentType = null, $filterByPendingSignature = null, $queryType = null, $participantQ = null, $participantQueryType = null, $tags = null, $q = null, $limit = null, $offset = null, $order = null)
     {
-        return $this->apiDocumentsGetAsyncWithHttpInfo($isConcluded, $folderId, $folderType, $documentType, $filterByDocumentType, $q, $limit, $offset, $order)
+        return $this->apiDocumentsGetAsyncWithHttpInfo($isConcluded, $status, $folderId, $folderType, $documentType, $filterByDocumentType, $filterByPendingSignature, $queryType, $participantQ, $participantQueryType, $tags, $q, $limit, $offset, $order)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -499,11 +517,17 @@ class DocumentsApi
      *
      * Retrieves the documents of the organization paginating the response.
      *
-     * @param  bool $isConcluded (optional)
+     * @param  bool $isConcluded (DEPRECATED) Please use \&quot;Status\&quot; parameter instead. Set to true to list concluded documents, false to list pending documents. (optional)
+     * @param  \Lacuna\Signer\Model\DocumentFilterStatus $status Filters by document status. Will override the \&quot;IsConcluded\&quot; property. (optional)
      * @param  string $folderId (optional)
      * @param  \Lacuna\Signer\Model\FolderType $folderType (optional)
      * @param  \Lacuna\Signer\Model\DocumentTypes $documentType (optional)
      * @param  bool $filterByDocumentType True if the documents should be filtered by type, use documentType to specify the document type.  If you want to filter only documents without a type, set this parameter to true and the documentType to null. (optional)
+     * @param  bool $filterByPendingSignature True if documents should be filtered only for those that have FlowAction of the type Signer or SignRule (optional)
+     * @param  \Lacuna\Signer\Model\DocumentQueryTypes $queryType (optional)
+     * @param  string $participantQ Query to filter by participant (optional)
+     * @param  \Lacuna\Signer\Model\ParticipantQueryTypes $participantQueryType (optional)
+     * @param  string $tags Label/value pairs are separated by \&quot;|\&quot; (optional) and Tags separated by \&quot;,\&quot;. Only the first 10 pairs will be considered.&lt;br /&gt;To search by tag value only, do not use the \&quot;|\&quot;. (optional)
      * @param  string $q Query to filter items. (optional)
      * @param  int $limit Number of items to return. (optional)
      * @param  int $offset The offset of the searched page (starting with 0). (optional)
@@ -512,10 +536,10 @@ class DocumentsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function apiDocumentsGetAsyncWithHttpInfo($isConcluded = null, $folderId = null, $folderType = null, $documentType = null, $filterByDocumentType = null, $q = null, $limit = null, $offset = null, $order = null)
+    public function apiDocumentsGetAsyncWithHttpInfo($isConcluded = null, $status = null, $folderId = null, $folderType = null, $documentType = null, $filterByDocumentType = null, $filterByPendingSignature = null, $queryType = null, $participantQ = null, $participantQueryType = null, $tags = null, $q = null, $limit = null, $offset = null, $order = null)
     {
         $returnType = '\Lacuna\Signer\Model\PaginatedSearchResponseDocumentsDocumentListModel';
-        $request = $this->apiDocumentsGetRequest($isConcluded, $folderId, $folderType, $documentType, $filterByDocumentType, $q, $limit, $offset, $order);
+        $request = $this->apiDocumentsGetRequest($isConcluded, $status, $folderId, $folderType, $documentType, $filterByDocumentType, $filterByPendingSignature, $queryType, $participantQ, $participantQueryType, $tags, $q, $limit, $offset, $order);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -557,11 +581,17 @@ class DocumentsApi
     /**
      * Create request for operation 'apiDocumentsGet'
      *
-     * @param  bool $isConcluded (optional)
+     * @param  bool $isConcluded (DEPRECATED) Please use \&quot;Status\&quot; parameter instead. Set to true to list concluded documents, false to list pending documents. (optional)
+     * @param  \Lacuna\Signer\Model\DocumentFilterStatus $status Filters by document status. Will override the \&quot;IsConcluded\&quot; property. (optional)
      * @param  string $folderId (optional)
      * @param  \Lacuna\Signer\Model\FolderType $folderType (optional)
      * @param  \Lacuna\Signer\Model\DocumentTypes $documentType (optional)
      * @param  bool $filterByDocumentType True if the documents should be filtered by type, use documentType to specify the document type.  If you want to filter only documents without a type, set this parameter to true and the documentType to null. (optional)
+     * @param  bool $filterByPendingSignature True if documents should be filtered only for those that have FlowAction of the type Signer or SignRule (optional)
+     * @param  \Lacuna\Signer\Model\DocumentQueryTypes $queryType (optional)
+     * @param  string $participantQ Query to filter by participant (optional)
+     * @param  \Lacuna\Signer\Model\ParticipantQueryTypes $participantQueryType (optional)
+     * @param  string $tags Label/value pairs are separated by \&quot;|\&quot; (optional) and Tags separated by \&quot;,\&quot;. Only the first 10 pairs will be considered.&lt;br /&gt;To search by tag value only, do not use the \&quot;|\&quot;. (optional)
      * @param  string $q Query to filter items. (optional)
      * @param  int $limit Number of items to return. (optional)
      * @param  int $offset The offset of the searched page (starting with 0). (optional)
@@ -570,7 +600,7 @@ class DocumentsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function apiDocumentsGetRequest($isConcluded = null, $folderId = null, $folderType = null, $documentType = null, $filterByDocumentType = null, $q = null, $limit = null, $offset = null, $order = null)
+    protected function apiDocumentsGetRequest($isConcluded = null, $status = null, $folderId = null, $folderType = null, $documentType = null, $filterByDocumentType = null, $filterByPendingSignature = null, $queryType = null, $participantQ = null, $participantQueryType = null, $tags = null, $q = null, $limit = null, $offset = null, $order = null)
     {
 
         $resourcePath = '/api/documents';
@@ -582,39 +612,63 @@ class DocumentsApi
 
         // query params
         if ($isConcluded !== null) {
-            $queryParams['IsConcluded'] = ObjectSerializer::toQueryValue($isConcluded);
+            $queryParams['IsConcluded'] = ObjectSerializer::toQueryValue($isConcluded, null);
+        }
+        // query params
+        if ($status !== null) {
+            $queryParams['Status'] = ObjectSerializer::toQueryValue($status, null);
         }
         // query params
         if ($folderId !== null) {
-            $queryParams['FolderId'] = ObjectSerializer::toQueryValue($folderId);
+            $queryParams['FolderId'] = ObjectSerializer::toQueryValue($folderId, 'uuid');
         }
         // query params
         if ($folderType !== null) {
-            $queryParams['FolderType'] = ObjectSerializer::toQueryValue($folderType);
+            $queryParams['FolderType'] = ObjectSerializer::toQueryValue($folderType, null);
         }
         // query params
         if ($documentType !== null) {
-            $queryParams['DocumentType'] = ObjectSerializer::toQueryValue($documentType);
+            $queryParams['DocumentType'] = ObjectSerializer::toQueryValue($documentType, null);
         }
         // query params
         if ($filterByDocumentType !== null) {
-            $queryParams['FilterByDocumentType'] = ObjectSerializer::toQueryValue($filterByDocumentType);
+            $queryParams['FilterByDocumentType'] = ObjectSerializer::toQueryValue($filterByDocumentType, null);
+        }
+        // query params
+        if ($filterByPendingSignature !== null) {
+            $queryParams['FilterByPendingSignature'] = ObjectSerializer::toQueryValue($filterByPendingSignature, null);
+        }
+        // query params
+        if ($queryType !== null) {
+            $queryParams['QueryType'] = ObjectSerializer::toQueryValue($queryType, null);
+        }
+        // query params
+        if ($participantQ !== null) {
+            $queryParams['ParticipantQ'] = ObjectSerializer::toQueryValue($participantQ, null);
+        }
+        // query params
+        if ($participantQueryType !== null) {
+            $queryParams['ParticipantQueryType'] = ObjectSerializer::toQueryValue($participantQueryType, null);
+        }
+        // query params
+        if ($tags !== null) {
+            $queryParams['Tags'] = ObjectSerializer::toQueryValue($tags, null);
         }
         // query params
         if ($q !== null) {
-            $queryParams['Q'] = ObjectSerializer::toQueryValue($q);
+            $queryParams['Q'] = ObjectSerializer::toQueryValue($q, null);
         }
         // query params
         if ($limit !== null) {
-            $queryParams['Limit'] = ObjectSerializer::toQueryValue($limit);
+            $queryParams['Limit'] = ObjectSerializer::toQueryValue($limit, 'int32');
         }
         // query params
         if ($offset !== null) {
-            $queryParams['Offset'] = ObjectSerializer::toQueryValue($offset);
+            $queryParams['Offset'] = ObjectSerializer::toQueryValue($offset, 'int32');
         }
         // query params
         if ($order !== null) {
-            $queryParams['Order'] = ObjectSerializer::toQueryValue($order);
+            $queryParams['Order'] = ObjectSerializer::toQueryValue($order, null);
         }
 
 
@@ -971,6 +1025,252 @@ class DocumentsApi
     }
 
     /**
+     * Operation apiDocumentsIdCancellationPost
+     *
+     * Cancels the document by providing a reason for the cancellation.
+     *
+     * @param  string $id id (required)
+     * @param  \Lacuna\Signer\Model\DocumentsCancelDocumentRequest $body body (optional)
+     *
+     * @throws \Lacuna\Signer\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function apiDocumentsIdCancellationPost($id, $body = null)
+    {
+        $this->apiDocumentsIdCancellationPostWithHttpInfo($id, $body);
+    }
+
+    /**
+     * Operation apiDocumentsIdCancellationPostWithHttpInfo
+     *
+     * Cancels the document by providing a reason for the cancellation.
+     *
+     * @param  string $id (required)
+     * @param  \Lacuna\Signer\Model\DocumentsCancelDocumentRequest $body (optional)
+     *
+     * @throws \Lacuna\Signer\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function apiDocumentsIdCancellationPostWithHttpInfo($id, $body = null)
+    {
+        $returnType = '';
+        $request = $this->apiDocumentsIdCancellationPostRequest($id, $body);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Lacuna\Signer\Model\ErrorModel',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation apiDocumentsIdCancellationPostAsync
+     *
+     * Cancels the document by providing a reason for the cancellation.
+     *
+     * @param  string $id (required)
+     * @param  \Lacuna\Signer\Model\DocumentsCancelDocumentRequest $body (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function apiDocumentsIdCancellationPostAsync($id, $body = null)
+    {
+        return $this->apiDocumentsIdCancellationPostAsyncWithHttpInfo($id, $body)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation apiDocumentsIdCancellationPostAsyncWithHttpInfo
+     *
+     * Cancels the document by providing a reason for the cancellation.
+     *
+     * @param  string $id (required)
+     * @param  \Lacuna\Signer\Model\DocumentsCancelDocumentRequest $body (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function apiDocumentsIdCancellationPostAsyncWithHttpInfo($id, $body = null)
+    {
+        $returnType = '';
+        $request = $this->apiDocumentsIdCancellationPostRequest($id, $body);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'apiDocumentsIdCancellationPost'
+     *
+     * @param  string $id (required)
+     * @param  \Lacuna\Signer\Model\DocumentsCancelDocumentRequest $body (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function apiDocumentsIdCancellationPostRequest($id, $body = null)
+    {
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling apiDocumentsIdCancellationPost'
+            );
+        }
+
+        $resourcePath = '/api/documents/{id}/cancellation';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+        // body params
+        $_tempBody = null;
+        if (isset($body)) {
+            $_tempBody = $body;
+        }
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json-patch+json', 'application/json', 'text/json', 'application/_*+json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            $httpBody = $_tempBody;
+            // \stdClass has no __toString(), so we should encode it manually
+            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('X-Api-Key');
+        if ($apiKey !== null) {
+            $headers['X-Api-Key'] = $apiKey;
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation apiDocumentsIdContentB64Get
      *
      * Downloads a specific version type of the document encoding the bytes in Base 64 format.
@@ -1173,7 +1473,7 @@ class DocumentsApi
 
         // query params
         if ($type !== null) {
-            $queryParams['type'] = ObjectSerializer::toQueryValue($type);
+            $queryParams['type'] = ObjectSerializer::toQueryValue($type, null);
         }
 
         // path params
@@ -1420,7 +1720,7 @@ class DocumentsApi
 
         // query params
         if ($type !== null) {
-            $queryParams['type'] = ObjectSerializer::toQueryValue($type);
+            $queryParams['type'] = ObjectSerializer::toQueryValue($type, null);
         }
 
         // path params
@@ -1733,6 +2033,252 @@ class DocumentsApi
         $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'DELETE',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation apiDocumentsIdEnvelopeVersionsPost
+     *
+     * Adds a new version for an envelope.
+     *
+     * @param  string $id id (required)
+     * @param  \Lacuna\Signer\Model\DocumentsEnvelopeAddVersionRequest $body body (optional)
+     *
+     * @throws \Lacuna\Signer\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function apiDocumentsIdEnvelopeVersionsPost($id, $body = null)
+    {
+        $this->apiDocumentsIdEnvelopeVersionsPostWithHttpInfo($id, $body);
+    }
+
+    /**
+     * Operation apiDocumentsIdEnvelopeVersionsPostWithHttpInfo
+     *
+     * Adds a new version for an envelope.
+     *
+     * @param  string $id (required)
+     * @param  \Lacuna\Signer\Model\DocumentsEnvelopeAddVersionRequest $body (optional)
+     *
+     * @throws \Lacuna\Signer\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function apiDocumentsIdEnvelopeVersionsPostWithHttpInfo($id, $body = null)
+    {
+        $returnType = '';
+        $request = $this->apiDocumentsIdEnvelopeVersionsPostRequest($id, $body);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Lacuna\Signer\Model\ErrorModel',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation apiDocumentsIdEnvelopeVersionsPostAsync
+     *
+     * Adds a new version for an envelope.
+     *
+     * @param  string $id (required)
+     * @param  \Lacuna\Signer\Model\DocumentsEnvelopeAddVersionRequest $body (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function apiDocumentsIdEnvelopeVersionsPostAsync($id, $body = null)
+    {
+        return $this->apiDocumentsIdEnvelopeVersionsPostAsyncWithHttpInfo($id, $body)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation apiDocumentsIdEnvelopeVersionsPostAsyncWithHttpInfo
+     *
+     * Adds a new version for an envelope.
+     *
+     * @param  string $id (required)
+     * @param  \Lacuna\Signer\Model\DocumentsEnvelopeAddVersionRequest $body (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function apiDocumentsIdEnvelopeVersionsPostAsyncWithHttpInfo($id, $body = null)
+    {
+        $returnType = '';
+        $request = $this->apiDocumentsIdEnvelopeVersionsPostRequest($id, $body);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'apiDocumentsIdEnvelopeVersionsPost'
+     *
+     * @param  string $id (required)
+     * @param  \Lacuna\Signer\Model\DocumentsEnvelopeAddVersionRequest $body (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function apiDocumentsIdEnvelopeVersionsPostRequest($id, $body = null)
+    {
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling apiDocumentsIdEnvelopeVersionsPost'
+            );
+        }
+
+        $resourcePath = '/api/documents/{id}/envelope/versions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+        // body params
+        $_tempBody = null;
+        if (isset($body)) {
+            $_tempBody = $body;
+        }
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json-patch+json', 'application/json', 'text/json', 'application/_*+json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            $httpBody = $_tempBody;
+            // \stdClass has no __toString(), so we should encode it manually
+            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('X-Api-Key');
+        if ($apiKey !== null) {
+            $headers['X-Api-Key'] = $apiKey;
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -2544,6 +3090,498 @@ class DocumentsApi
     }
 
     /**
+     * Operation apiDocumentsIdNotifiedEmailsPut
+     *
+     * Updates the document's notified emails
+     *
+     * @param  string $id Id of the document (required)
+     * @param  \Lacuna\Signer\Model\DocumentsDocumentNotifiedEmailsEditRequest $body body (optional)
+     *
+     * @throws \Lacuna\Signer\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function apiDocumentsIdNotifiedEmailsPut($id, $body = null)
+    {
+        $this->apiDocumentsIdNotifiedEmailsPutWithHttpInfo($id, $body);
+    }
+
+    /**
+     * Operation apiDocumentsIdNotifiedEmailsPutWithHttpInfo
+     *
+     * Updates the document's notified emails
+     *
+     * @param  string $id Id of the document (required)
+     * @param  \Lacuna\Signer\Model\DocumentsDocumentNotifiedEmailsEditRequest $body (optional)
+     *
+     * @throws \Lacuna\Signer\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function apiDocumentsIdNotifiedEmailsPutWithHttpInfo($id, $body = null)
+    {
+        $returnType = '';
+        $request = $this->apiDocumentsIdNotifiedEmailsPutRequest($id, $body);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Lacuna\Signer\Model\ErrorModel',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation apiDocumentsIdNotifiedEmailsPutAsync
+     *
+     * Updates the document's notified emails
+     *
+     * @param  string $id Id of the document (required)
+     * @param  \Lacuna\Signer\Model\DocumentsDocumentNotifiedEmailsEditRequest $body (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function apiDocumentsIdNotifiedEmailsPutAsync($id, $body = null)
+    {
+        return $this->apiDocumentsIdNotifiedEmailsPutAsyncWithHttpInfo($id, $body)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation apiDocumentsIdNotifiedEmailsPutAsyncWithHttpInfo
+     *
+     * Updates the document's notified emails
+     *
+     * @param  string $id Id of the document (required)
+     * @param  \Lacuna\Signer\Model\DocumentsDocumentNotifiedEmailsEditRequest $body (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function apiDocumentsIdNotifiedEmailsPutAsyncWithHttpInfo($id, $body = null)
+    {
+        $returnType = '';
+        $request = $this->apiDocumentsIdNotifiedEmailsPutRequest($id, $body);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'apiDocumentsIdNotifiedEmailsPut'
+     *
+     * @param  string $id Id of the document (required)
+     * @param  \Lacuna\Signer\Model\DocumentsDocumentNotifiedEmailsEditRequest $body (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function apiDocumentsIdNotifiedEmailsPutRequest($id, $body = null)
+    {
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling apiDocumentsIdNotifiedEmailsPut'
+            );
+        }
+
+        $resourcePath = '/api/documents/{id}/notified-emails';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+        // body params
+        $_tempBody = null;
+        if (isset($body)) {
+            $_tempBody = $body;
+        }
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json-patch+json', 'application/json', 'text/json', 'application/_*+json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            $httpBody = $_tempBody;
+            // \stdClass has no __toString(), so we should encode it manually
+            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('X-Api-Key');
+        if ($apiKey !== null) {
+            $headers['X-Api-Key'] = $apiKey;
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'PUT',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation apiDocumentsIdRefusalPost
+     *
+     * Refuses a document by providing a reason for the refusal.
+     *
+     * @param  string $id id (required)
+     * @param  \Lacuna\Signer\Model\RefusalRefusalRequest $body body (optional)
+     *
+     * @throws \Lacuna\Signer\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function apiDocumentsIdRefusalPost($id, $body = null)
+    {
+        $this->apiDocumentsIdRefusalPostWithHttpInfo($id, $body);
+    }
+
+    /**
+     * Operation apiDocumentsIdRefusalPostWithHttpInfo
+     *
+     * Refuses a document by providing a reason for the refusal.
+     *
+     * @param  string $id (required)
+     * @param  \Lacuna\Signer\Model\RefusalRefusalRequest $body (optional)
+     *
+     * @throws \Lacuna\Signer\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function apiDocumentsIdRefusalPostWithHttpInfo($id, $body = null)
+    {
+        $returnType = '';
+        $request = $this->apiDocumentsIdRefusalPostRequest($id, $body);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Lacuna\Signer\Model\ErrorModel',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation apiDocumentsIdRefusalPostAsync
+     *
+     * Refuses a document by providing a reason for the refusal.
+     *
+     * @param  string $id (required)
+     * @param  \Lacuna\Signer\Model\RefusalRefusalRequest $body (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function apiDocumentsIdRefusalPostAsync($id, $body = null)
+    {
+        return $this->apiDocumentsIdRefusalPostAsyncWithHttpInfo($id, $body)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation apiDocumentsIdRefusalPostAsyncWithHttpInfo
+     *
+     * Refuses a document by providing a reason for the refusal.
+     *
+     * @param  string $id (required)
+     * @param  \Lacuna\Signer\Model\RefusalRefusalRequest $body (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function apiDocumentsIdRefusalPostAsyncWithHttpInfo($id, $body = null)
+    {
+        $returnType = '';
+        $request = $this->apiDocumentsIdRefusalPostRequest($id, $body);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'apiDocumentsIdRefusalPost'
+     *
+     * @param  string $id (required)
+     * @param  \Lacuna\Signer\Model\RefusalRefusalRequest $body (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function apiDocumentsIdRefusalPostRequest($id, $body = null)
+    {
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling apiDocumentsIdRefusalPost'
+            );
+        }
+
+        $resourcePath = '/api/documents/{id}/refusal';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+        // body params
+        $_tempBody = null;
+        if (isset($body)) {
+            $_tempBody = $body;
+        }
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json-patch+json', 'application/json', 'text/json', 'application/_*+json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            $httpBody = $_tempBody;
+            // \stdClass has no __toString(), so we should encode it manually
+            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('X-Api-Key');
+        if ($apiKey !== null) {
+            $headers['X-Api-Key'] = $apiKey;
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation apiDocumentsIdSignaturesDetailsGet
      *
      * Retrieves the details of the document's signatures.
@@ -3026,11 +4064,11 @@ class DocumentsApi
 
         // query params
         if ($type !== null) {
-            $queryParams['type'] = ObjectSerializer::toQueryValue($type);
+            $queryParams['type'] = ObjectSerializer::toQueryValue($type, null);
         }
         // query params
         if ($preview !== null) {
-            $queryParams['preview'] = ObjectSerializer::toQueryValue($preview);
+            $queryParams['preview'] = ObjectSerializer::toQueryValue($preview, null);
         }
 
         // path params
@@ -3105,6 +4143,252 @@ class DocumentsApi
         $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation apiDocumentsIdVersionsPost
+     *
+     * Adds a new version for the document.
+     *
+     * @param  string $id id (required)
+     * @param  \Lacuna\Signer\Model\DocumentsDocumentAddVersionRequest $body body (optional)
+     *
+     * @throws \Lacuna\Signer\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function apiDocumentsIdVersionsPost($id, $body = null)
+    {
+        $this->apiDocumentsIdVersionsPostWithHttpInfo($id, $body);
+    }
+
+    /**
+     * Operation apiDocumentsIdVersionsPostWithHttpInfo
+     *
+     * Adds a new version for the document.
+     *
+     * @param  string $id (required)
+     * @param  \Lacuna\Signer\Model\DocumentsDocumentAddVersionRequest $body (optional)
+     *
+     * @throws \Lacuna\Signer\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function apiDocumentsIdVersionsPostWithHttpInfo($id, $body = null)
+    {
+        $returnType = '';
+        $request = $this->apiDocumentsIdVersionsPostRequest($id, $body);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Lacuna\Signer\Model\ErrorModel',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation apiDocumentsIdVersionsPostAsync
+     *
+     * Adds a new version for the document.
+     *
+     * @param  string $id (required)
+     * @param  \Lacuna\Signer\Model\DocumentsDocumentAddVersionRequest $body (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function apiDocumentsIdVersionsPostAsync($id, $body = null)
+    {
+        return $this->apiDocumentsIdVersionsPostAsyncWithHttpInfo($id, $body)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation apiDocumentsIdVersionsPostAsyncWithHttpInfo
+     *
+     * Adds a new version for the document.
+     *
+     * @param  string $id (required)
+     * @param  \Lacuna\Signer\Model\DocumentsDocumentAddVersionRequest $body (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function apiDocumentsIdVersionsPostAsyncWithHttpInfo($id, $body = null)
+    {
+        $returnType = '';
+        $request = $this->apiDocumentsIdVersionsPostRequest($id, $body);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'apiDocumentsIdVersionsPost'
+     *
+     * @param  string $id (required)
+     * @param  \Lacuna\Signer\Model\DocumentsDocumentAddVersionRequest $body (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function apiDocumentsIdVersionsPostRequest($id, $body = null)
+    {
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling apiDocumentsIdVersionsPost'
+            );
+        }
+
+        $resourcePath = '/api/documents/{id}/versions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+        // body params
+        $_tempBody = null;
+        if (isset($body)) {
+            $_tempBody = $body;
+        }
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json-patch+json', 'application/json', 'text/json', 'application/_*+json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            $httpBody = $_tempBody;
+            // \stdClass has no __toString(), so we should encode it manually
+            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('X-Api-Key');
+        if ($apiKey !== null) {
+            $headers['X-Api-Key'] = $apiKey;
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

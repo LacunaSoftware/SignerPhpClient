@@ -6,7 +6,6 @@ namespace Lacuna\Signer\PhpClient\Models;
 
 class UploadModel
 {
-    public $location;
     public $id;
     public $name;
     public $contentType;
@@ -14,20 +13,9 @@ class UploadModel
 
     public function __construct($model)
     {
-        $this->location = $model->location ;
         $this->id = $model->id;
         $this->name = $model->name;
         $this->contentType = $model->contentType;
-    }
-
-    public function getlocation()
-    {
-        return $this->location;
-    }
-
-    public function setlocation($location)
-    {
-        $this->location = $location;
     }
 
     public function getId()
@@ -42,7 +30,6 @@ class UploadModel
 
     public function getName()
     {
-        //echo $this->name;
         return $this->name;
     }
 

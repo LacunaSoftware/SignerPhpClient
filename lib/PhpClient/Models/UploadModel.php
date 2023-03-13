@@ -2,6 +2,7 @@
 
 
 namespace Lacuna\Signer\PhpClient\Models;
+use Lacuna\Signer\ObjectSerializer;
 
 
 class UploadModel

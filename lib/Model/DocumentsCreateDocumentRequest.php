@@ -68,6 +68,7 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
 'disablePendingActionNotifications' => 'bool',
 'newFolderName' => 'string',
 'forceCadesSignature' => 'bool',
+'participantsDataFile' => '\Lacuna\Signer\PhpClient\Models\UploadModel',
 'notifiedEmails' => 'string[]',
 'expirationDate' => '\DateTime'    ];
 
@@ -89,6 +90,7 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
 'disablePendingActionNotifications' => null,
 'newFolderName' => null,
 'forceCadesSignature' => null,
+'participantsDataFile' => null,
 'notifiedEmails' => null,
 'expirationDate' => 'date-time'    ];
 
@@ -131,6 +133,7 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
 'disablePendingActionNotifications' => 'disablePendingActionNotifications',
 'newFolderName' => 'newFolderName',
 'forceCadesSignature' => 'forceCadesSignature',
+'participantsDataFile' => 'participantsDataFile',
 'notifiedEmails' => 'notifiedEmails',
 'expirationDate' => 'expirationDate'    ];
 
@@ -152,6 +155,7 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
 'disablePendingActionNotifications' => 'setDisablePendingActionNotifications',
 'newFolderName' => 'setNewFolderName',
 'forceCadesSignature' => 'setForceCadesSignature',
+'participantsDataFile' => 'setParticipantsDataFile',
 'notifiedEmails' => 'setNotifiedEmails',
 'expirationDate' => 'setExpirationDate'    ];
 
@@ -174,6 +178,7 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
 'newFolderName' => 'getNewFolderName',
 'forceCadesSignature' => 'getForceCadesSignature',
 'notifiedEmails' => 'getNotifiedEmails',
+'participantsDataFile' => 'getParticipantsDataFile',
 'expirationDate' => 'getExpirationDate'    ];
 
     /**
@@ -246,6 +251,7 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
         $this->container['disablePendingActionNotifications'] = isset($data['disablePendingActionNotifications']) ? $data['disablePendingActionNotifications'] : null;
         $this->container['newFolderName'] = isset($data['newFolderName']) ? $data['newFolderName'] : null;
         $this->container['forceCadesSignature'] = isset($data['forceCadesSignature']) ? $data['forceCadesSignature'] : null;
+        $this->container['participantsDataFile'] = isset($data['participantsDataFile']) ? $data['participantsDataFile'] : null;
         $this->container['notifiedEmails'] = isset($data['notifiedEmails']) ? $data['notifiedEmails'] : null;
         $this->container['expirationDate'] = isset($data['expirationDate']) ? $data['expirationDate'] : null;
     }
@@ -564,6 +570,30 @@ class DocumentsCreateDocumentRequest implements ModelInterface, ArrayAccess
     public function setForceCadesSignature($forceCadesSignature)
     {
         $this->container['forceCadesSignature'] = $forceCadesSignature;
+
+        return $this;
+    }
+
+    /**
+     * Gets participantsDataFile
+     *
+     * @return string[]
+     */
+    public function getParticipantsDataFile()
+    {
+        return $this->container['participantsDataFile'];
+    }
+
+    /**
+     * Sets participantsDataFile
+     *
+     * @param string[] $participantsDataFile The emails to notify when the document is concluded.
+     *
+     * @return $this
+     */
+    public function setParticipantsDataFile($participantsDataFile)
+    {
+        $this->container['participantsDataFile'] = $participantsDataFile;
 
         return $this;
     }

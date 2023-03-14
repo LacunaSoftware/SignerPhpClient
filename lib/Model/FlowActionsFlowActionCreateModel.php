@@ -11,14 +11,14 @@
  */
 
 /**
- * Dropsigner (HML)
+ * Dropsigner
  *
- * <!--------------------------------------------------------------------------------------------------------------------->    <h2>Authentication</h2>    <p>   In order to call this APIs, you will need an <strong>API key</strong>. Set the API key in the header <span class=\"code\">X-Api-Key</span>:  </p>    <pre>X-Api-Key: your-app|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre>    <!--------------------------------------------------------------------------------------------------------------------->  <br />    <h2>HTTP Codes</h2>    <p>   The APIs will return the following HTTP codes:  </p>    <table>   <thead>    <tr>     <th>Code</th>     <th>Description</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">200 (OK)</strong></td>     <td>Request processed successfully. The response is different for each API, please refer to the operation's documentation</td>    </tr>    <tr>     <td><strong class=\"model-title\">400 (Bad Request)</strong></td>     <td>Syntax error. For instance, when a required field was not provided</td>    </tr>    <tr>     <td><strong class=\"model-title\">401 (Unauthorized)</strong></td>     <td>API key not provided or invalid</td>    </tr>    <tr>     <td><strong class=\"model-title\">403 (Forbidden)</strong></td>     <td>API key is valid, but the application has insufficient permissions to complete the requested operation</td>    </tr>    <tr>     <td><strong class=\"model-title\">422 (Unprocessable Entity)</strong></td>     <td>API error. The response is as defined in <a href=\"#model-ErrorModel\">ErrorModel</a></td>    </tr>   </tbody>  </table>    <br />    <h3>Error Codes</h3>    <p>Some of the error codes returned in a 422 response are provided bellow*:</p>    <ul>   <li>CertificateNotFound</li>   <li>DocumentNotFound</li>   <li>FolderNotFound</li>   <li>CpfMismatch</li>   <li>CpfNotExpected</li>   <li>InvalidFlowAction</li>   <li>DocumentInvalidKey</li>  </ul>    <p style=\"font-size: 0.9em\">   *The codes shown above are the main error codes. Nonetheless, this list is not comprehensive. New codes may be added anytime without previous warning.  </p>    <!--------------------------------------------------------------------------------------------------------------------->    <br />    <h2>Webhooks</h2>    <p>   It is recomended to subscribe to Webhook events <strong>instead</strong> of polling APIs. To do so, enable webhooks and register an URL that will receive a POST request   whenever one of the events bellow occur.  </p>  <p>   All requests have the format described in <a href=\"#model-Webhooks.WebhookModel\">Webhooks.WebhookModel</a>.   The data field varies according to the webhook event type:  </p>      <table>   <thead>    <tr>     <th>Event type</th>     <th>Description</th>     <th>Payload</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">DocumentSigned</strong></td>     <td>Triggered when a document is signed.</td>     <td><a href=\"#model-Webhooks.DocumentSignedModel\">Webhooks.DocumentSignedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentApproved</strong></td>     <td>Triggered when a document is approved.</td>     <td><a href=\"#model-Webhooks.DocumentApprovedModel\">Webhooks.DocumentApprovedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentRefused</strong></td>     <td>Triggered when a document is refused.</td>     <td><a href=\"#model-Webhooks.DocumentRefusedModel\">Webhooks.DocumentRefusedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentConcluded</strong></td>     <td>Triggered when the flow of a document is concluded.</td>     <td><a href=\"#model-Webhooks.DocumentConcludedModel\">Webhooks.DocumentConcludedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentCanceled</strong></td>     <td>Triggered when the document is canceled.</td>     <td><a href=\"#model-Webhooks.DocumentCanceledModel\">Webhooks.DocumentCanceledModel</a></td>    </tr>   </tbody>  </table>    <p>   To register your application URL and enable Webhooks, access the integrations section in your <a href=\"/private/organizations\" target=\"_blank\">organization's details page</a>.  </p>
+ * <!--------------------------------------------------------------------------------------------------------------------->    <h2>Authentication</h2>    <p>   In order to call this APIs, you will need an <strong>API key</strong>. Set the API key in the header <span class=\"code\">X-Api-Key</span>:  </p>    <pre>X-Api-Key: your-app|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre>    <!--------------------------------------------------------------------------------------------------------------------->  <br />    <h2>HTTP Codes</h2>    <p>   The APIs will return the following HTTP codes:  </p>    <table>   <thead>    <tr>     <th>Code</th>     <th>Description</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">200 (OK)</strong></td>     <td>Request processed successfully. The response is different for each API, please refer to the operation's documentation</td>    </tr>    <tr>     <td><strong class=\"model-title\">400 (Bad Request)</strong></td>     <td>Syntax error. For instance, when a required field was not provided</td>    </tr>    <tr>     <td><strong class=\"model-title\">401 (Unauthorized)</strong></td>     <td>API key not provided or invalid</td>    </tr>    <tr>     <td><strong class=\"model-title\">403 (Forbidden)</strong></td>     <td>API key is valid, but the application has insufficient permissions to complete the requested operation</td>    </tr>    <tr>     <td><strong class=\"model-title\">422 (Unprocessable Entity)</strong></td>     <td>API error. The response is as defined in <a href=\"#model-ErrorModel\">ErrorModel</a></td>    </tr>   </tbody>  </table>    <br />    <h3>Error Codes</h3>    <p>Some of the error codes returned in a 422 response are provided bellow*:</p>    <ul>   <li>CertificateNotFound</li>   <li>DocumentNotFound</li>   <li>FolderNotFound</li>   <li>CpfMismatch</li>   <li>CpfNotExpected</li>   <li>InvalidFlowAction</li>   <li>DocumentInvalidKey</li>  </ul>    <p style=\"font-size: 0.9em\">   *The codes shown above are the main error codes. Nonetheless, this list is not comprehensive. New codes may be added anytime without previous warning.  </p>    <!--------------------------------------------------------------------------------------------------------------------->    <br />    <h2>Webhooks</h2>    <p>   It is recomended to subscribe to Webhook events <strong>instead</strong> of polling APIs. To do so, enable webhooks and register an URL that will receive a POST request   whenever one of the events bellow occur.  </p>  <p>   All requests have the format described in <a href=\"#model-Webhooks.WebhookModel\">Webhooks.WebhookModel</a>.   The data field varies according to the webhook event type:  </p>      <table>   <thead>    <tr>     <th>Event type</th>     <th>Description</th>     <th>Payload</th>    </tr>   </thead>   <tbody>    <tr>     <td><strong class=\"model-title\">DocumentSigned</strong></td>     <td>Triggered when a document is signed.</td>     <td><a href=\"#model-Webhooks.DocumentSignedModel\">Webhooks.DocumentSignedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentApproved</strong></td>     <td>Triggered when a document is approved.</td>     <td><a href=\"#model-Webhooks.DocumentApprovedModel\">Webhooks.DocumentApprovedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentRefused</strong></td>     <td>Triggered when a document is refused.</td>     <td><a href=\"#model-Webhooks.DocumentRefusedModel\">Webhooks.DocumentRefusedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentConcluded</strong></td>     <td>Triggered when the flow of a document is concluded.</td>     <td><a href=\"#model-Webhooks.DocumentConcludedModel\">Webhooks.DocumentConcludedModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentCanceled</strong></td>     <td>Triggered when the document is canceled.</td>     <td><a href=\"#model-Webhooks.DocumentCanceledModel\">Webhooks.DocumentCanceledModel</a></td>    </tr>    <tr>     <td><strong class=\"model-title\">DocumentsCreated (v1.50.0)</strong></td>     <td>Triggered when one or more documents are created.</td>     <td><a href=\"#model-Webhooks.DocumentsCreatedModel\">Webhooks.DocumentsCreatedModel</a></td>    </tr>   </tbody>  </table>    <p>   To register your application URL and enable Webhooks, access the integrations section in your <a href=\"/private/organizations\" target=\"_blank\">organization's details page</a>.  </p>
  *
- * OpenAPI spec version: 1.35.0
+ * OpenAPI spec version: 1.55.0
  * 
  * Generated by: https://github.com/swagger-api/swagger-codegen.git
- * Swagger Codegen version: 3.0.20
+ * Swagger Codegen version: 3.0.41
  */
 /**
  * NOTE: This class is auto generated by the swagger code generator program.
@@ -61,6 +61,7 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
 'user' => '\Lacuna\Signer\Model\UsersParticipantUserModel',
 'numberRequiredSignatures' => 'int',
 'ruleName' => 'string',
+'allowRuleFlowToContinueIfRefused' => 'bool',
 'title' => 'string',
 'signRuleUsers' => '\Lacuna\Signer\Model\UsersParticipantUserModel[]',
 'prePositionedMarks' => '\Lacuna\Signer\Model\DocumentMarkPrePositionedDocumentMarkModel[]',
@@ -73,7 +74,9 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
 'requiredCertificateTypeToSign' => '\Lacuna\Signer\Model\CertificateTypes',
 'requireCompanyCertificate' => 'bool',
 'requiredCompanyIdentifier' => 'string',
-'xadesOptions' => '\Lacuna\Signer\Model\FlowActionsXadesOptionsModel'    ];
+'requiredCertificateHolderTypeToSign' => '\Lacuna\Signer\Model\CertificateHolderTypes',
+'xadesOptions' => '\Lacuna\Signer\Model\FlowActionsXadesOptionsModel',
+'signatureInitialsMode' => '\Lacuna\Signer\Model\SignatureInitialsModes'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -86,6 +89,7 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
 'user' => null,
 'numberRequiredSignatures' => 'int32',
 'ruleName' => null,
+'allowRuleFlowToContinueIfRefused' => null,
 'title' => null,
 'signRuleUsers' => null,
 'prePositionedMarks' => null,
@@ -98,7 +102,9 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
 'requiredCertificateTypeToSign' => null,
 'requireCompanyCertificate' => null,
 'requiredCompanyIdentifier' => null,
-'xadesOptions' => null    ];
+'requiredCertificateHolderTypeToSign' => null,
+'xadesOptions' => null,
+'signatureInitialsMode' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -132,6 +138,7 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
 'user' => 'user',
 'numberRequiredSignatures' => 'numberRequiredSignatures',
 'ruleName' => 'ruleName',
+'allowRuleFlowToContinueIfRefused' => 'allowRuleFlowToContinueIfRefused',
 'title' => 'title',
 'signRuleUsers' => 'signRuleUsers',
 'prePositionedMarks' => 'prePositionedMarks',
@@ -144,7 +151,9 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
 'requiredCertificateTypeToSign' => 'requiredCertificateTypeToSign',
 'requireCompanyCertificate' => 'requireCompanyCertificate',
 'requiredCompanyIdentifier' => 'requiredCompanyIdentifier',
-'xadesOptions' => 'xadesOptions'    ];
+'requiredCertificateHolderTypeToSign' => 'requiredCertificateHolderTypeToSign',
+'xadesOptions' => 'xadesOptions',
+'signatureInitialsMode' => 'signatureInitialsMode'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -157,6 +166,7 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
 'user' => 'setUser',
 'numberRequiredSignatures' => 'setNumberRequiredSignatures',
 'ruleName' => 'setRuleName',
+'allowRuleFlowToContinueIfRefused' => 'setAllowRuleFlowToContinueIfRefused',
 'title' => 'setTitle',
 'signRuleUsers' => 'setSignRuleUsers',
 'prePositionedMarks' => 'setPrePositionedMarks',
@@ -169,7 +179,9 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
 'requiredCertificateTypeToSign' => 'setRequiredCertificateTypeToSign',
 'requireCompanyCertificate' => 'setRequireCompanyCertificate',
 'requiredCompanyIdentifier' => 'setRequiredCompanyIdentifier',
-'xadesOptions' => 'setXadesOptions'    ];
+'requiredCertificateHolderTypeToSign' => 'setRequiredCertificateHolderTypeToSign',
+'xadesOptions' => 'setXadesOptions',
+'signatureInitialsMode' => 'setSignatureInitialsMode'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -182,6 +194,7 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
 'user' => 'getUser',
 'numberRequiredSignatures' => 'getNumberRequiredSignatures',
 'ruleName' => 'getRuleName',
+'allowRuleFlowToContinueIfRefused' => 'getAllowRuleFlowToContinueIfRefused',
 'title' => 'getTitle',
 'signRuleUsers' => 'getSignRuleUsers',
 'prePositionedMarks' => 'getPrePositionedMarks',
@@ -194,7 +207,9 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
 'requiredCertificateTypeToSign' => 'getRequiredCertificateTypeToSign',
 'requireCompanyCertificate' => 'getRequireCompanyCertificate',
 'requiredCompanyIdentifier' => 'getRequiredCompanyIdentifier',
-'xadesOptions' => 'getXadesOptions'    ];
+'requiredCertificateHolderTypeToSign' => 'getRequiredCertificateHolderTypeToSign',
+'xadesOptions' => 'getXadesOptions',
+'signatureInitialsMode' => 'getSignatureInitialsMode'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -259,6 +274,7 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
         $this->container['user'] = isset($data['user']) ? $data['user'] : null;
         $this->container['numberRequiredSignatures'] = isset($data['numberRequiredSignatures']) ? $data['numberRequiredSignatures'] : null;
         $this->container['ruleName'] = isset($data['ruleName']) ? $data['ruleName'] : null;
+        $this->container['allowRuleFlowToContinueIfRefused'] = isset($data['allowRuleFlowToContinueIfRefused']) ? $data['allowRuleFlowToContinueIfRefused'] : null;
         $this->container['title'] = isset($data['title']) ? $data['title'] : null;
         $this->container['signRuleUsers'] = isset($data['signRuleUsers']) ? $data['signRuleUsers'] : null;
         $this->container['prePositionedMarks'] = isset($data['prePositionedMarks']) ? $data['prePositionedMarks'] : null;
@@ -271,7 +287,9 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
         $this->container['requiredCertificateTypeToSign'] = isset($data['requiredCertificateTypeToSign']) ? $data['requiredCertificateTypeToSign'] : null;
         $this->container['requireCompanyCertificate'] = isset($data['requireCompanyCertificate']) ? $data['requireCompanyCertificate'] : null;
         $this->container['requiredCompanyIdentifier'] = isset($data['requiredCompanyIdentifier']) ? $data['requiredCompanyIdentifier'] : null;
+        $this->container['requiredCertificateHolderTypeToSign'] = isset($data['requiredCertificateHolderTypeToSign']) ? $data['requiredCertificateHolderTypeToSign'] : null;
         $this->container['xadesOptions'] = isset($data['xadesOptions']) ? $data['xadesOptions'] : null;
+        $this->container['signatureInitialsMode'] = isset($data['signatureInitialsMode']) ? $data['signatureInitialsMode'] : null;
     }
 
     /**
@@ -414,6 +432,30 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
     public function setRuleName($ruleName)
     {
         $this->container['ruleName'] = $ruleName;
+
+        return $this;
+    }
+
+    /**
+     * Gets allowRuleFlowToContinueIfRefused
+     *
+     * @return bool
+     */
+    public function getAllowRuleFlowToContinueIfRefused()
+    {
+        return $this->container['allowRuleFlowToContinueIfRefused'];
+    }
+
+    /**
+     * Sets allowRuleFlowToContinueIfRefused
+     *
+     * @param bool $allowRuleFlowToContinueIfRefused If true and the action is a Sign Rule, allows the document flow to continue while there are enough users that can fulfill the rule.
+     *
+     * @return $this
+     */
+    public function setAllowRuleFlowToContinueIfRefused($allowRuleFlowToContinueIfRefused)
+    {
+        $this->container['allowRuleFlowToContinueIfRefused'] = $allowRuleFlowToContinueIfRefused;
 
         return $this;
     }
@@ -671,7 +713,7 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
     /**
      * Sets requireCompanyCertificate
      *
-     * @param bool $requireCompanyCertificate Requires the user to sign the document with a company certificate (e.g. e-CNPJ).
+     * @param bool $requireCompanyCertificate [DEPRECATED] Requires the user to sign the document with a company certificate (e.g. e-CNPJ). Please use Lacuna.Signer.Api.FlowActions.FlowActionCreateModel.RequiredCertificateHolderTypeToSign instead.
      *
      * @return $this
      */
@@ -707,6 +749,30 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets requiredCertificateHolderTypeToSign
+     *
+     * @return \Lacuna\Signer\Model\CertificateHolderTypes
+     */
+    public function getRequiredCertificateHolderTypeToSign()
+    {
+        return $this->container['requiredCertificateHolderTypeToSign'];
+    }
+
+    /**
+     * Sets requiredCertificateHolderTypeToSign
+     *
+     * @param \Lacuna\Signer\Model\CertificateHolderTypes $requiredCertificateHolderTypeToSign requiredCertificateHolderTypeToSign
+     *
+     * @return $this
+     */
+    public function setRequiredCertificateHolderTypeToSign($requiredCertificateHolderTypeToSign)
+    {
+        $this->container['requiredCertificateHolderTypeToSign'] = $requiredCertificateHolderTypeToSign;
+
+        return $this;
+    }
+
+    /**
      * Gets xadesOptions
      *
      * @return \Lacuna\Signer\Model\FlowActionsXadesOptionsModel
@@ -729,6 +795,30 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
+    /**
+     * Gets signatureInitialsMode
+     *
+     * @return \Lacuna\Signer\Model\SignatureInitialsModes
+     */
+    public function getSignatureInitialsMode()
+    {
+        return $this->container['signatureInitialsMode'];
+    }
+
+    /**
+     * Sets signatureInitialsMode
+     *
+     * @param \Lacuna\Signer\Model\SignatureInitialsModes $signatureInitialsMode signatureInitialsMode
+     *
+     * @return $this
+     */
+    public function setSignatureInitialsMode($signatureInitialsMode)
+    {
+        $this->container['signatureInitialsMode'] = $signatureInitialsMode;
+
+        return $this;
+    }
     /**
      * Returns true if offset exists. False otherwise.
      *
@@ -736,6 +826,7 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
+    #[\ReturnTypeWillChange] 
     public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
@@ -748,6 +839,7 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange] 
     public function offsetGet($offset)
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
@@ -761,6 +853,7 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
      *
      * @return void
      */
+    #[\ReturnTypeWillChange] 
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
@@ -777,6 +870,7 @@ class FlowActionsFlowActionCreateModel implements ModelInterface, ArrayAccess
      *
      * @return void
      */
+    #[\ReturnTypeWillChange] 
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);

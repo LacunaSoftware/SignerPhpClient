@@ -245,7 +245,9 @@ class RestClient
                 throw new Exception("Could not create temporary file, exiting code", 1);
             }
         }
-        fclose($auxFile);
+        if(is_resource($auxFile)) {
+            fclose($auxFile);
+        }
         return $result->getBody();
     }
 
